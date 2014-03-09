@@ -1,0 +1,39 @@
+{% extends 'base-with-sidebar.html' %}
+{% block left %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <p class="panel-title">
+            创建关于{{topic.title}}的附言
+        </p>
+    </div>
+    <div class="panel-body">
+        <form class="form" action="{% url 'add_appendix' topic.id%}" method="post">
+            {% csrf_token %}
+            <div class="form-group ">
+                <label class="sr-only" for="content">内容</label>
+                <textarea placeholder="内容"  class="form-control" id="content" name="content"></textarea>
+            </div>
+            <div class="form-submit text-right">
+                <a class="btn btn-default" id="pre-btn">
+                    预览
+                </a>
+                <button class="btn btn-info" type="submit" id="submit">
+                    发表
+                </button>
+            </div>
+        </form>
+        <div class="previewer">
+
+        </div>
+    </div>
+</div><!--end reply panel-->
+{% endblock %}
+{% block right %}
+{% include 'node-info.html' %}
+{% include 'user-panel.html' %}
+{% include 'node.html' %}
+{% include 'links.html' %}
+{% endblock %}
+{% block footer_ext %}
+<script src="{{STATIC_URL}}/js/previewer.js"></script>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base-with-sidebar.html' %}
+{% load timetonow %}
+{% block left %}
+<div class="panel panel-default">
+    <div class="panel-body row">
+        <div class="col-xs-2">
+            <img src="{{user.profile.avatar.large}}" title="{{user.profile.username}}"/>
+        </div>
+        <div class="col-xs-10">
+            <p class="list-post-title"><strong>{{user.profile.username}}</strong></p>
+            <p class="list-meta">#{{user.id}} @ {{user.date_joined|time_to_now}}</p>
+            {% if user.profile.website %}
+            <p class="list-meta"><a target="_blank" href="{{user.profile.website}}">{{user.profile.website}}</a></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% include 'topic-list.html' %}
+{% endblock %}
+{% block right %}
+{% include 'user-panel.html' %}
+{% include 'node.html' %}
+{% include 'links.html' %}
+{% endblock %}

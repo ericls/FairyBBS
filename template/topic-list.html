@@ -1,0 +1,33 @@
+{% load timetonow %}
+{% load pagination_tags %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{post_list_title}}</h3>
+    </div>
+    <ul class="list-group">
+        {% autopaginate topics 30 %}
+        {% for t in topics %}
+        <div class="list-group-item list-topic-item" id="topic-{{t.id}}">
+            <div class="row ">
+                <a href="{% url 'user_info' t.user.id %}" class="col-md-1 col-xs-2 col-sm-2"><img title="{{t.user.profile.username}}" class="avatar-middle" src="{{t.user.profile.avatar.middle}}"></a>
+                <div class="col-xs-9 col-md-10 col-sm-9">
+                    <h3 class="list-post-title"><a href="{% url 'topic_view' t.id %}">{{t.title}}</a></h3>
+                    <p class="list-meta">
+                        <span class="label label-default list-meta-node"><a href="{% url 'node_view' t.node.id%}">{{t.node.title}}</a></span>
+                        <span class="list-count">{{t.click}}</span>
+                        <span class="list-time">{{t.time_created | time_to_now}}</span>
+                        <span class="list-username"><a href="{% url 'user_info' t.user.id %}">{{t.user.profile.username}}</a></span>
+                    </p>
+                </div>
+                <div class="col-xs-1 col-sm-1">
+                    <span class="badge pull-right list-reply-count">{{t.reply_count}}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </ul>
+    <div class="panel-footer">
+        {% paginate %}
+    </div>
+</div>
+

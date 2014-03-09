@@ -1,0 +1,89 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=360, initial-scale=0.75 user-scalable=no">
+        <meta name="keywords" content="Django论坛程序,python论坛程序,fairybbs" />
+        <meta name="description" content="FairyBBS是一个用重量级框架Django开发的轻量级论坛程序，这是FairyBBS的演示站点" />
+        <title>
+            {% block title %}
+            {{title}}-
+            {% if pager %}
+            第{{ pager }}页-
+            {% endif %} 
+            {{conf.sitename}}
+            {% endblock %}
+        </title>
+
+        <!-- Bootstrap -->
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/base.css' %}" rel="stylesheet">
+        <link href="{% static 'css/codehilite.css' %}" rel="stylesheet">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="{% static 'js/html5shiv.js' %}"></script>
+        <script src="{% static 'js/respond.min.js' %}"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'index' %}">FairyBBS</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class=""><a href="{% url 'recent' %}">最新话题</a></li>
+                </ul>
+                    <div class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input onkeydown="if(event.keyCode==13){search();}" type="text" id="search" class="form-control" name="search" placeholder="搜索">
+                        </div>
+                        <a class="btn btn-default" id="search-btn">
+                            搜索
+                        </a>
+                    </div>
+                </div>
+            </div><!--end nav container-->
+        </nav><!--end nav-->
+
+        <div id="wrap">
+            <div class="container" id="main">
+                <div class="row">
+                    {% block inside_row %}
+                    {% endblock %}
+                </div><!--end outter row-->
+            </div><!--end main-->
+        </div><!--end wrap-->
+
+        <footer id="footer">
+            <div class="container clearfix">
+                <div class="text-muted pull-left">
+                   <p>
+					Inspired by <a target="_blank" href="//python-china.org">Python-China</a>. 
+					A <a target="_blank" href="//djangoproject.com">Django</a> project</p>
+                </div>
+                <p class="muted credit pull-right">
+                    ©
+                    <time datetime="2014-03-5 06:27:16.585834">
+                        2014
+                    </time>
+                    Powered by <a href="http://fairybbs.com">FairyBBS</a> 0.0.2.
+                </p>
+            </div>
+        </footer>
+
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/search.js' %}"></script>
+        {% block footer_ext %}{% endblock %}
+    </body>
+</html>

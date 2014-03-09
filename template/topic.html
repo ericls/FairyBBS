@@ -1,0 +1,133 @@
+{% extends 'base-with-sidebar.html' %}
+{% block left %}
+{% load timetonow %}
+{% load pagination_tags %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <a href="{% url 'user_info' topic.user.id %}" class="col-md-1"><img title="{{topic.user.profile.username}}" class="avatar-middle" src="{{topic.user.profile.avatar.middle}}"></a>
+            <div class="col-xs-10">
+                <h3 class="list-post-title">{{topic.title}}</h3>
+                <p class="list-meta">
+                    <span class="label label-default list-meta-node"><a href="{% url 'node_view' topic.node.id%}">{{topic.node.title}}</a></span>
+                    <span class="list-count">{{topic.click}}</span>
+                    <span class="list-time">{{topic.time_created | time_to_now}}</span>
+                    <span class="list-username"><a href="{% url 'user_info' topic.user.id %}">{{topic.user.profile.username}}</a></span>
+                    {% if request.user == topic.user%}
+                    <a class="label-success label" href="{% url 'add_appendix' topic.id %}">添加附言</a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        {{topic.rendered_content | safe}}
+    </div>
+     {% if topic.appendix_set.all %}
+     <ul class="list-group">
+           {% for a in topic.appendix_set.all %}
+        <div class="list-group-item list-appendix-item">
+            <p class="appendix-meta">第{{forloop.counter}}条附言 {{a.time_created|time_to_now}}</p>
+            {{a.content_rendered | safe}}
+        </div>
+        {% endfor %}
+        </ul>
+        {% endif %}
+</div><!--end content panel-->
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <p class="panel-title">
+            {% if topic.reply_count %}
+            {{topic.reply_count}}条回复
+            {% else %}
+            暂无评论
+            {% endif %}
+        </p>
+    </div>
+    {% if topic.reply_count != 0 %}
+    <ul class="list-group">
+        {% autopaginate posts 30 %}
+        {% for r in posts %}
+        <div class="list-group-item list-topic-item" id="post-{{r.id}}">
+            <div class="row ">
+                <a href="{% url 'user_info' r.user.id %}" class="col-md-1"><img title="{{r.user.profile.username}}" class="avatar-middle" src="{{r.user.profile.avatar.middle}}"></a>
+                <div class="col-xs-10">
+                    <div class="reply-author">
+                        <a href="{% url 'user_info' r.user.id %}">{{r.user.profile.username}}</a>
+                        <span class="list-time">{{r.time_created | time_to_now}}</span>
+                        {% if request.user.is_superuser %}
+                        <a class="delete" href="{% url 'delete_post' r.id%}">删除</a>
+                        {% endif %}
+                    </div>
+                    <div class="reply-content">
+                        {{r.content_rendered | safe}}
+                    
+                    </div>
+                </div>
+                <div class="col-md-1">
+                <a href="#create_reply" data-user="{{r.user.username}}" class="label-info label pull-right reply-btn">reply</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </ul>
+    <div class="panel-footer">
+        {% paginate %}
+    </div>
+    {% else %}
+    <div class="panel-body">
+        <div class="alert alert-info">
+            还没有回复。
+        </div>
+    </div>
+    {% endif %}
+</div><!--end reply panel-->
+
+<div class="panel panel-default" id="create_reply">
+    <div class="panel-heading">
+        <p class="panel-title">
+            创建回复
+        </p>
+    </div>
+    <div class="panel-body">
+        {% if request.user.is_authenticated %}
+        <form class="form" action="{% url 'create_reply' topic.id%}" method="post">
+            {% csrf_token %}
+            <div class="form-group ">
+                <label class="sr-only" for="content">内容</label>
+                <textarea class="form-control" id="content" name="content"></textarea>
+            </div>
+            
+            <div class="form-submit text-right">
+            <a class="btn btn-default" id="pre-btn">
+                    预览
+             </a>
+                <button class="btn btn-info" type="submit" id="submit">
+                    回复(Ctrl+Enter)
+                </button>
+            </div>
+        </form>
+        <div class="previewer">
+            
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            登入后方可回复
+        </div>
+        <a href="{% url 'signin' %}" class="btn btn-info">登入</a>
+        {% endif %}
+    </div>
+    
+</div><!--end reply panel-->
+{% endblock %}
+{% block right %}
+{% include 'node-info.html' %}
+{% include 'user-panel.html' %}
+{% include 'node.html' %}
+{% include 'links.html' %}
+{% endblock %}
+{% block footer_ext %}
+<script src="{{STATIC_URL}}/js/previewer.js"></script>
+<script src="{{STATIC_URL}}/js/mention.js"></script>
+{% endblock %}
