@@ -1,4 +1,4 @@
-FairyBBS is a BBS built on top of Django.
+FairyBBS( [DEMO](http://fairybbs.com) ) is a BBS built on top of Django.
 
 The reason it exists is that I like [June](https://github.com/pythoncn/june) from python-china.org but I'm not familiar with Flask.
 
