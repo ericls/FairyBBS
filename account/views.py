@@ -30,11 +30,15 @@ alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]*$', 'Only alphanumeric characters
 
 
 def user_info(request, user_id):
-    u = User.objects.get(id=user_id)
-    return render_to_response('user-info.html', {'request': request, 'title': u'用户信息',
-                                                 'user': u, 'conf': conf,
-                                                 'topics': u.profile.latest_activity()['topic'],
-                                                 'post_list_title': u'用户%s的最新主题' % (u.profile.username())})
+    try:
+        u = User.objects.get(id=user_id)
+
+        return render_to_response('user-info.html', {'request': request, 'title': u'用户信息',
+                                                     'user': u, 'conf': conf,
+                                                     'topics': u.profile.latest_activity()['topic'],
+                                                     'post_list_title': u'用户%s的最新主题' % (u.profile.username())})
+    except:
+        return error(request, '用户没有填写详细信息')
 
 
 def reg(request):
@@ -131,6 +135,8 @@ def change_password(request):
     elif request.method == 'POST':
         old = request.POST['old-password']
         new = request.POST['password']
+        if request.POST['password'] != request.POST['password2'] or request.POST['password'] == '' or request.POST['password2'] == '':
+            return error(request, '两次输入的密码不一致或者为空')
         if authenticate(username=u.username, password=old):
             u.set_password(new)
             u.save()
