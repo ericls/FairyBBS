@@ -10,5 +10,8 @@ urlpatterns = patterns('account.views',
     url(r'^oauth/qq/$', 'qq_oauth', name='qq_oauth'),
     url(r'password/$', 'change_password', name='change_password'),
     url(r'avatar/$', 'user_avatar', name='user_avatar'),
+    url(r'^reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
+        'reset_confirm', name='password_reset_confirm'),
+    url(r'^reset/$', 'reset', name='password_reset'),
     #url(r'^(?P<key>.*?)/$', 'to', name='goto'),
 )

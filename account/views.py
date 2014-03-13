@@ -168,6 +168,18 @@ def user_avatar(request):
         return HttpResponseRedirect(reverse('user_avatar'))
 
 
+def reset_confirm(request, uidb64=None, token=None):
+    return password_reset_confirm(request, template_name='reset-password-confirm.html',
+        uidb64=uidb64, token=token, post_reset_redirect=reverse('signin'))
+
+
+def reset(request):
+    return password_reset(request, template_name='reset-password.html',
+        email_template_name='reset-password-email.html',
+        subject_template_name='reset-password-subject.txt',
+        post_reset_redirect=reverse('signin'))
+
+
 ###############
 #oauth related#
 ###############
