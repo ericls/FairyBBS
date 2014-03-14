@@ -1,24 +1,27 @@
 #encoding=utf-8
+from account.models import profile, social
+from django.contrib import auth
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
+from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
+from django.core.validators import RegexValidator
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from fairy import conf
 from forum.models import topic, post, node
-from django.contrib import auth
+from forum.views import error
 import json
 import markdown
-from django.contrib.auth import login, authenticate, logout
-from account.models import profile, social
-from forum.views import error
-import urllib, urllib2, re, random
-from django.core.validators import RegexValidator
-import tempfile
-import shutil
 import os
-from django.core.files.storage import FileSystemStorage
+import shutil
+import tempfile
+import urllib
+import urllib2
+import re
+import random
 # Create your views here.
 
 storage = FileSystemStorage(

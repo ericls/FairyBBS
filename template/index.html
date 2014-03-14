@@ -1,4 +1,8 @@
 {% extends 'base-with-sidebar.html' %}
+{% block header_ext%}
+    <meta name="keywords" content="Django论坛程序,python论坛程序,fairybbs" />
+    <meta name="description" content="FairyBBS是一个用重量级框架Django开发的轻量级论坛程序，这是FairyBBS的演示站点" />
+{% endblock %}
 {% block left %}
 {% include 'topic-list.html' %}
 {% endblock %}
