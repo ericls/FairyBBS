@@ -1,5 +1,11 @@
 from django.conf.urls import patterns, include, url
 
+api_urlpatterns = patterns('forum.api',
+    url(r'^topic/(?P<topic_id>\d+)/$', 'topic_api', name='topic_api'),
+    url(r'^topics/$', 'topics_api', name='topics_api'),
+    url(r'^post/(?P<post_id>\d+)/$', 'post_api', name='post_api'),
+)
+
 urlpatterns = patterns('forum.views',
     url(r'^$', 'index', name='index'),
     url(r'^topic/(?P<topic_id>\d+)/$', 'topic_view', name='topic_view'),
