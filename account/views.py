@@ -3,6 +3,7 @@ from account.models import profile, social
 from django.contrib import auth
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.views import password_reset, password_reset_confirm
 from django.core.context_processors import csrf
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
