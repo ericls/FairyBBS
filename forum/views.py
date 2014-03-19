@@ -1,4 +1,5 @@
 #encoding=utf-8
+from account.models import profile
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
@@ -30,6 +31,9 @@ def previewer(request):
 
 def index(request):
     conf.nodes = node.objects.all()
+    conf.user_count = profile.objects.count()
+    conf.topic_count = topic.objects.count()
+    conf.post_count = post.objects.count()
     topics = topic.objects.all().order_by('-last_replied')[0:30]
     post_list_title = u'最新话题'
     return render_to_response('index.html', {'topics': topics, 'title': u'首页',
