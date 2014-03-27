@@ -4,6 +4,8 @@ from fairy import settings
 from forum.models import node, topic, post
 import os
 sitename = u'FairyBBS官方网站'
+logoname = u'FairyBBS'
+
 links = {
         #'description': 'url',
         }
