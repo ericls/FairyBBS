@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load settingsvalue %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +13,7 @@
             {{title}}-
             {% if pager %}
             第{{ pager }}页-
-            {% endif %} 
+            {% endif %}
             {{conf.sitename}}
             {% endblock %}
         </title>
@@ -37,7 +38,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{% url 'index' %}">FairyBBS</a>
+                    <a class="navbar-brand" href="{% url 'index' %}">{% conf_value "logoname" %}</a>
                 </div>
                 <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
