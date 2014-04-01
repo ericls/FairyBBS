@@ -17,10 +17,11 @@ import operator
 
 
 def error(request, msg, back=None):
-    return render_to_response('error.html',{'conf': conf, 'title':'提示信息',
-                                            'msg': msg,
-                                            'back': back,
-                                            'request': request,})
+    return render_to_response('error.html', {'conf': conf, 'title': '提示信息',
+                                             'msg': msg,
+                                             'back': back,
+                                             'request': request, })
+
 
 def previewer(request):
     c = request.REQUEST['content']
@@ -55,12 +56,12 @@ def topic_view(request, topic_id):
     if page == '1':
         page = None
     return render_to_response('topic.html', {'conf': conf, 'title': t.title,
-                                            'request': request,
-                                            'topic': t,
-                                            'node': n,
-                                            'pager': page,
-                                            'posts': posts
-                                            },
+                                             'request': request,
+                                             'topic': t,
+                                             'node': n,
+                                             'pager': page,
+                                             'posts': posts
+    },
                               context_instance=RequestContext(request))
 
 
@@ -72,12 +73,12 @@ def create_reply(request, topic_id):
         if request.POST['content']:
             r.content = request.POST['content']
         else:
-            return error(request,'请填写内容')
+            return error(request, '请填写内容')
         r.user = request.user
         r.save()
         return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))
     elif request.method == 'GET':
-        return error(request,'don\'t get')
+        return error(request, 'don\'t get')
 
 
 def node_view(request, node_id):
@@ -90,11 +91,11 @@ def node_view(request, node_id):
     n = node.objects.get(id=node_id)
     topics = topic.objects.filter(node=n).order_by('-time_created')
     return render_to_response('node-view.html', {'request': request, 'title': n.title,
-                                                'conf': conf,
-                                                'topics': topics,
-                                                'node': n,
-                                                'pager': page,
-                                                'post_list_title': u'发表在%s中的话题' % (n.title),})
+                                                 'conf': conf,
+                                                 'topics': topics,
+                                                 'node': n,
+                                                 'pager': page,
+                                                 'post_list_title': u'发表在%s中的话题' % (n.title), })
 
 
 def create_topic(request, node_id):
@@ -130,10 +131,10 @@ def search(request, keyword):
         page = None
     if page == '1':
         page = None
-    return render_to_response('index.html', {'request': request, 'title': u'%s-搜索结果'%(keyword),
-                                                'conf': conf, 'pager': page,
-                                                'topics': topics,
-                                                'post_list_title': u'搜索关于%s的话题' % (keyword),})
+    return render_to_response('index.html', {'request': request, 'title': u'%s-搜索结果' % (keyword),
+                                             'conf': conf, 'pager': page,
+                                             'topics': topics,
+                                             'post_list_title': u'搜索关于%s的话题' % (keyword), })
 
 
 def recent(request):
@@ -145,11 +146,11 @@ def recent(request):
         page = None
     topics = topic.objects.all().order_by('-time_created')
     return render_to_response('index.html', {'request': request, 'title': u'最近主题',
-                                                'conf': conf, 
-                                                'topics': topics,
-                                                'recent': 'reccent',
-                                                'pager': page,
-                                                'post_list_title': u'最近发表的话题',})
+                                             'conf': conf,
+                                             'topics': topics,
+                                             'recent': 'reccent',
+                                             'pager': page,
+                                             'post_list_title': u'最近发表的话题', })
 
 
 @staff_member_required
@@ -164,11 +165,11 @@ def add_appendix(request, topic_id):
     t = topic.objects.get(id=topic_id)
     n = t.node
     if request.user != t.user:
-        return error(request,u'请不要给其他用户的话题添加附言')
+        return error(request, u'请不要给其他用户的话题添加附言')
     if request.method == 'GET':
-        return render_to_response('append.html',{'request': request, 'title': u'添加附言',
-                                                 'node': n, 'conf': conf,
-                                                 'topic': t,},
+        return render_to_response('append.html', {'request': request, 'title': u'添加附言',
+                                                  'node': n, 'conf': conf,
+                                                  'topic': t, },
                                   context_instance=RequestContext(request))
     elif request.method == 'POST':
         a = appendix()
@@ -178,3 +179,14 @@ def add_appendix(request, topic_id):
         a.topic = t
         a.save()
         return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))
+
+
+def node_all(request):
+
+    nodes = node.objects.all()
+
+
+    return render_to_response('node-all.html', {'request': request, 'title': u'所有节点',
+                                                'conf': conf,
+                                                'nodes': nodes,
+                                                'node_list_title': u'最近所有节点', })

@@ -1,57 +1,81 @@
-a{
+a {
     text-decoration: none !important;
 }
+
 .list-post-title, .list-meta {
     margin: 0px;
 }
-.list-post-title{
-    font-size:120%;
-    padding-top:5px;
+
+.list-post-title {
+    font-size: 120%;
+    padding-top: 5px;
 }
+
 .avatar-middle {
     width: 48px;
     height: 48px;
 }
+
 .list-reply-count {
     margin-top: 15px;
 }
+
+/*.label {*/
+    /*border: 1px solid #000;*/
+/*}*/
+
 .label a {
     color: #F5F5F5;
 }
+
+.label-node {
+  display: inline-block;
+  line-height: 1.6;
+  background: #999;
+  margin-bottom: 10px;
+}
+
 h3.list-post-title a {
     text-decoration: none;
     color: #333;
 }
+
 .list-topic-item:hover {
     background-color: #f5f5f5;
 }
-.list-count::before,.list-time::before,.list-username::before{
-content: '\2022';
-margin-right: 5px;
+
+.list-count::before, .list-time::before, .list-username::before {
+    content: '\2022';
+    margin-right: 5px;
 }
-.list-username a{
-    color:#666;
+
+.list-username a {
+    color: #666;
 }
-.list-meta{
-    color:#aaa;
+
+.list-meta {
+    color: #aaa;
 }
-footer{
-    padding-top:20px;
+
+footer {
+    padding-top: 20px;
 }
-#wrap{
+
+#wrap {
     background-image: url("/static/image/bg.png");
-    padding-top:70px;
-}
-ul.pager{
-    margin:0px;
+    padding-top: 70px;
 }
 
-.padtop{
-    margin-top:5px;
+ul.pager {
+    margin: 0px;
 }
 
-.list-time{
-    color:#aaa
+.padtop {
+    margin-top: 5px;
+}
+
+.list-time {
+    color: #aaa
 }
 
 /* Sticky footer styles
@@ -59,38 +83,66 @@ ul.pager{
 
 html,
 body {
-  height: 100%;
-  /* The html and body elements cannot have any padding or margin. */
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
 }
 
 /* Wrapper for page content to push down footer */
 #wrap {
-  min-height: 100%;
-  height: auto;
-  /* Negative indent footer by its height */
-  margin-bottom: -50px;
-  /* Pad bottom by footer height */
-  padding-bottom:50px;
+    min-height: 100%;
+    height: auto;
+    /* Negative indent footer by its height */
+    margin-bottom: -50px;
+    /* Pad bottom by footer height */
+    padding-bottom: 50px;
 }
 
 /* Set the fixed height of the footer here */
 footer {
-  height: 50px;
-  background-color: #FEFEFE;
+    height: 50px;
+    background-color: #FEFEFE;
 }
-#content{
-    height:120px;
+
+#content {
+    height: 120px;
 }
-.pagination{
-  margin: 0px;
+
+.pagination {
+    margin: 0px;
 }
-.appendix-meta{
+
+.appendix-meta {
     font-size: 12px;
     line-height: 120%;
     text-align: left;
-    color:#ccc;
+    color: #ccc;
 }
-.list-appendix-item{
-    background:#FFFFF9;
+
+.list-appendix-item {
+    background: #FFFFF9;
     border-left: 3px solid #FFFBC1 !important;
+}
+
+.panel-body {
+    padding: 15px;
+}
+
+.panel-body:before,
+.panel-body:after {
+    display: table;
+    content: " ";
+}
+
+.panel-body:after {
+    clear: both;
+}
+
+.panel-body:before,
+.panel-body:after {
+    display: table;
+    content: " ";
+}
+
+.panel-body:after {
+    clear: both;
 }
