@@ -16,6 +16,11 @@ a {
     height: 48px;
 }
 
+.avatar-large {
+    width: 80px;
+    height: 80px;
+}
+
 .list-reply-count {
     margin-top: 15px;
 }
