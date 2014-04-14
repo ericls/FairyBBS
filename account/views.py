@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import password_reset, password_reset_confirm
 from django.core.context_processors import csrf
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator
@@ -34,15 +35,20 @@ alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]*$', 'Only alphanumeric characters
 
 
 def user_info(request, user_id):
+    u = User.objects.get(id=user_id)
+    
     try:
-        u = User.objects.get(id=user_id)
+        u.profile
+    except ObjectDoesNotExist:
+        p = profile()
+        p.user = u
+        p.save()
 
-        return render_to_response('user-info.html', {'request': request, 'title': u'用户信息',
-                                                     'user': u, 'conf': conf,
-                                                     'topics': u.profile.latest_activity()['topic'],
-                                                     'post_list_title': u'用户%s的最新主题' % (u.profile.username())})
-    except:
-        return error(request, '用户没有填写详细信息')
+    return render_to_response('user-info.html', {'request': request, 'title': u'用户信息',
+                                                 'user': u, 'conf': conf,
+                                                 'topics': u.profile.latest_activity()['topic'],
+                                                 'post_list_title': u'用户%s的最新主题' % (u.profile.username())})
+
 
 
 def reg(request):
@@ -201,7 +207,7 @@ def GenerateUsername(nickname):
 
 def qq_oauth(request):
     if request.method == 'GET':
-        if (not request.GET['code']) or (request.GET['state'] != 'pythoncclogin'):
+        if (not request.GET['code']) or (request.GET['state'] != 'fairybbs'):
             return error(request, '请求错误')
         code = request.GET['code']
         url = 'https://graph.qq.com/oauth2.0/token'
