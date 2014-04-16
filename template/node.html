@@ -6,7 +6,7 @@
     </div>
     <div class="panel-body">
         {% for node in conf.nodes %}
-        <span class="label label-default"><a href="{% url 'node_view' node.id %}">{{node.title}}</a></span>
+        <span class="label label-default list-meta-node"><a href="{% url 'node_view' node.id %}">{{node.title}}</a></span>
         
         {% endfor %}
     </div>

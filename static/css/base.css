@@ -49,7 +49,7 @@ h3.list-post-title a {
     background-color: #f5f5f5;
 }
 
-.list-count::before, .list-time::before, .list-username::before {
+.list-count::before, .list-time::before, .list-username::before, .list-reply-count-xs::before {
     content: '\2022';
     margin-right: 5px;
 }
@@ -67,7 +67,8 @@ footer {
 }
 
 #wrap {
-    background-image: url("/static/image/bg.png");
+   /**background-image: url("/static/image/bg.png");**/
+  	background-color: #E0E0E0;
     padding-top: 70px;
 }
 
@@ -150,4 +151,36 @@ footer {
 
 .panel-body:after {
     clear: both;
+}
+
+.list-meta-node{
+	background-color: #F5F5F5;
+}
+
+.list-meta-node a{
+	color: #AAA;
+}
+
+.list-reply-count{
+	background-color: #C0C0C0;
+}
+
+.topic-heading{
+	background-color: #FFF !important;
+}
+
+.list-post-title-in-topic{
+	font-size: 180%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 0px;
+}
+
+@media (max-width: 768px){
+	.list-reply-count-xs{
+		display:inline-block !important;
+	}
+	.list-username{
+		display: none;
+	}
 }

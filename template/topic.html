@@ -3,11 +3,11 @@
 {% load timetonow %}
 {% load pagination_tags %}
 <div class="panel panel-default">
-    <div class="panel-heading">
+    <div class="topic-heading panel-heading">
         <div class="row">
-            <a href="{% url 'user_info' topic.user.id %}" class="col-md-1"><img title="{{topic.user.profile.username}}" class="avatar-middle" src="{{topic.user.profile.avatar.middle}}"></a>
+            <a href="{% url 'user_info' topic.user.id %}" class="col-md-1 pull-right hidden-xs"><img title="{{topic.user.profile.username}}" class="avatar-middle pull-right" src="{{topic.user.profile.avatar.middle}}"></a>
             <div class="col-xs-10">
-                <h3 class="list-post-title">{{topic.title}}</h3>
+                <h3 class="list-post-title-in-topic">{{topic.title}}</h3>
                 <p class="list-meta">
                     <span class="label label-default list-meta-node"><a href="{% url 'node_view' topic.node.id%}">{{topic.node.title}}</a></span>
                     <span class="list-count">{{topic.click}}</span>

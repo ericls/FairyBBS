@@ -14,13 +14,14 @@
                     <h3 class="list-post-title"><a href="{% url 'topic_view' t.id %}">{{t.title}}</a></h3>
                     <p class="list-meta">
                         <span class="label label-default list-meta-node"><a href="{% url 'node_view' t.node.id%}">{{t.node.title}}</a></span>
-                        <span class="list-count">{{t.click}}</span>
+                        <span class="list-count">{{t.click}}次点击</span>
                         <span class="list-time">{{t.time_created | time_to_now}}</span>
                         <span class="list-username"><a href="{% url 'user_info' t.user.id %}">{{t.user.profile.username}}</a></span>
+                    	<span class="list-reply-count-xs visible-xs">{{t.reply_count}}次回复</span>
                     </p>
                 </div>
                 <div class="col-xs-1 col-sm-1">
-                    <span class="badge pull-right list-reply-count">{{t.reply_count}}</span>
+                    <span class="badge pull-right list-reply-count hidden-xs">{{t.reply_count}}</span>
                 </div>
             </div>
         </div>
