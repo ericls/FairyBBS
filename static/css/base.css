@@ -184,3 +184,8 @@ footer {
 		display: none;
 	}
 }
+
+.topic-breadcrumb, .topic-breadcrumb a{
+	margin:0px;
+	color:#AAAAAA;
+}
