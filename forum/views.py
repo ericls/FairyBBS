@@ -2,6 +2,7 @@
 from account.models import profile
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.db.models import Q
@@ -73,7 +74,9 @@ def create_reply(request, topic_id):
         if request.POST['content']:
             r.content = request.POST['content']
         else:
-            return error(request, '请填写内容')
+            messages.add_message(request, messages.WARNING, u'请填写内容')
+            return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id':topic_id}))
+            #return error(request, '请填写内容')
         r.user = request.user
         r.save()
         return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))
@@ -111,7 +114,9 @@ def create_topic(request, node_id):
         t.node = n
         t.title = request.POST['title']
         if not t.title:
-            return error(request, u'请填写标题')
+            messages.add_message(request, messages.WARNING, u'请填写标题')
+            return HttpResponseRedirect(reverse('create_topic', kwargs={'node_id':node_id}))
+            #return error(request, u'请填写标题')
         if not request.user.is_authenticated():
             return error(request, '请登陆', reverse('signin'))
         t.user = request.user
@@ -175,7 +180,8 @@ def add_appendix(request, topic_id):
         a = appendix()
         a.content = request.POST['content']
         if not a.content:
-            return error(request, u'请不要添加空内容')
+            messages.add_message(request, messages.WARNING, u'内容不能为空')
+            return HttpResponseRedirect(reverse('add_appendix', kwargs={'topic_id': t.id}))
         a.topic = t
         a.save()
         return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))

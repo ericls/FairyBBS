@@ -7,6 +7,15 @@
         </p>
     </div>
     <div class="panel-body">
+    	{% if messages %}
+		<div class="messages">
+			{% for message in messages %}
+			<p class="text-{{ message.tags }}">
+				{{ message }}
+			</p>
+			{% endfor %}
+		</div>
+		{% endif %}
         {% if request.user.is_authenticated %}
         <form class="form" action="{% url 'create_topic' node.id%}" method="post">
             {% csrf_token %}
