@@ -148,7 +148,7 @@ def recent(request):
         page = None
     if page == '1':
         page = None
-    topics = topic.objects.all().order_by('-time_created')
+    topics = topic.objects.all().filter(deleted=False).order_by('-time_created')
     return render_to_response('index.html', {'request': request, 'title': u'最近主题',
                                              'conf': conf,
                                              'topics': topics,
@@ -167,7 +167,7 @@ def del_reply(request, post_id):
 
 def del_topic(request, topic_id):
     t = topic.objects.get(id=topic_id)
-    if request.user != t.user:
+    if request.user != t.user and (not request.user.is_superuser):
         return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))
     n_id = t.node.id
     t.deleted = True
@@ -177,7 +177,7 @@ def del_topic(request, topic_id):
 
 def edit_topic(request, topic_id):
     t = topic.objects.get(id=topic_id)
-    if request.user != t.user:
+    if request.user != t.user and (not request.user.is_superuser):
         return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))
     if request.method == 'GET':
         return render_to_response('edit-topic.html',{'request': request, 'conf': conf,
