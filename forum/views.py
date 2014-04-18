@@ -188,11 +188,8 @@ def add_appendix(request, topic_id):
 
 
 def node_all(request):
-
-    nodes = node.objects.all()
-
-
+    nodes = {}
+    nodes[u'分类1'] = list(node.objects.filter(id__in=[1]).all())
     return render_to_response('node-all.html', {'request': request, 'title': u'所有节点',
                                                 'conf': conf,
-                                                'nodes': nodes,
-                                                'node_list_title': u'节点导航', })
+                                                'nodes': nodes, })
