@@ -23,6 +23,7 @@ a {
 
 .list-reply-count {
     margin-top: 15px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 /*.label {*/
@@ -188,4 +189,13 @@ footer {
 .topic-breadcrumb, .topic-breadcrumb a{
 	margin:0px;
 	color:#AAAAAA;
+}
+
+body{
+	font-family: "WenQuanYi Micro Hei","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+html, html a {
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
 }

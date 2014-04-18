@@ -195,4 +195,4 @@ def node_all(request):
     return render_to_response('node-all.html', {'request': request, 'title': u'所有节点',
                                                 'conf': conf,
                                                 'nodes': nodes,
-                                                'node_list_title': u'最近所有节点', })
+                                                'node_list_title': u'节点导航', })
