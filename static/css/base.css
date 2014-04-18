@@ -1,201 +1,213 @@
 a {
-    text-decoration: none !important;
+	text-decoration: none !important;
 }
 
 .list-post-title, .list-meta {
-    margin: 0px;
+	margin: 0px;
 }
 
 .list-post-title {
-    font-size: 120%;
-    padding-top: 5px;
+	font-size: 120%;
+	padding-top: 5px;
 }
 
 .avatar-middle {
-    width: 48px;
-    height: 48px;
+	width: 48px;
+	height: 48px;
 }
 
 .avatar-large {
-    width: 80px;
-    height: 80px;
+	width: 80px;
+	height: 80px;
 }
 
 .list-reply-count {
-    margin-top: 15px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	margin-top: 15px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /*.label {*/
-    /*border: 1px solid #000;*/
+/*border: 1px solid #000;*/
 /*}*/
 
 .label a {
-    color: #F5F5F5;
+	color: #F5F5F5;
 }
 
 .label-node {
-  display: inline-block;
-  line-height: 1.6;
-  background: #999;
-  margin-bottom: 10px;
+	display: inline-block;
+	line-height: 1.6;
+	background: #999;
+	margin-bottom: 10px;
 }
 
 h3.list-post-title a {
-    text-decoration: none;
-    color: #333;
+	text-decoration: none;
+	color: #333;
 }
 
 .list-topic-item:hover {
-    background-color: #f5f5f5;
+	background-color: #f5f5f5;
 }
 
 .list-count::before, .list-time::before, .list-username::before, .list-reply-count-xs::before {
-    content: '\2022';
-    margin-right: 5px;
+	content: '\2022';
+	margin-right: 5px;
 }
 
 .list-username a {
-    color: #666;
+	color: #666;
 }
 
 .list-meta {
-    color: #aaa;
+	color: #aaa;
 }
 
 footer {
-    padding-top: 20px;
+	padding-top: 20px;
 }
 
 #wrap {
-   /**background-image: url("/static/image/bg.png");**/
-  	background-color: #E0E0E0;
-    padding-top: 70px;
+	/**background-image: url("/static/image/bg.png");**/
+	background-color: #E0E0E0;
+	padding-top: 70px;
 }
 
 ul.pager {
-    margin: 0px;
+	margin: 0px;
 }
 
 .padtop {
-    margin-top: 5px;
+	margin-top: 5px;
 }
 
 .list-time {
-    color: #aaa
+	color: #aaa
 }
 
 /* Sticky footer styles
--------------------------------------------------- */
+ -------------------------------------------------- */
 
-html,
-body {
-    height: 100%;
-    /* The html and body elements cannot have any padding or margin. */
+html, body {
+	height: 100%;
+	/* The html and body elements cannot have any padding or margin. */
 }
 
 /* Wrapper for page content to push down footer */
 #wrap {
-    min-height: 100%;
-    height: auto;
-    /* Negative indent footer by its height */
-    margin-bottom: -50px;
-    /* Pad bottom by footer height */
-    padding-bottom: 50px;
+	min-height: 100%;
+	height: auto;
+	/* Negative indent footer by its height */
+	margin-bottom: -50px;
+	/* Pad bottom by footer height */
+	padding-bottom: 50px;
 }
 
 /* Set the fixed height of the footer here */
 footer {
-    height: 50px;
-    background-color: #FEFEFE;
+	height: 50px;
+	background-color: #FEFEFE;
 }
 
 #content {
-    height: 120px;
+	height: 120px;
 }
 
 .pagination {
-    margin: 0px;
+	margin: 0px;
 }
 
 .appendix-meta {
-    font-size: 12px;
-    line-height: 120%;
-    text-align: left;
-    color: #ccc;
+	font-size: 12px;
+	line-height: 120%;
+	text-align: left;
+	color: #ccc;
 }
 
 .list-appendix-item {
-    background: #FFFFF9;
-    border-left: 3px solid #FFFBC1 !important;
+	background: #FFFFF9;
+	border-left: 3px solid #FFFBC1 !important;
 }
 
 .panel-body {
-    padding: 15px;
+	padding: 15px;
 }
 
-.panel-body:before,
-.panel-body:after {
-    display: table;
-    content: " ";
-}
-
-.panel-body:after {
-    clear: both;
-}
-
-.panel-body:before,
-.panel-body:after {
-    display: table;
-    content: " ";
+.panel-body:before, .panel-body:after {
+	display: table;
+	content: " ";
 }
 
 .panel-body:after {
-    clear: both;
+	clear: both;
 }
 
-.list-meta-node{
+.panel-body:before, .panel-body:after {
+	display: table;
+	content: " ";
+}
+
+.panel-body:after {
+	clear: both;
+}
+
+.list-meta-node {
 	background-color: #F5F5F5;
 }
 
-.list-meta-node a{
+.list-meta-node a {
 	color: #AAA;
 }
 
-.list-reply-count{
+.list-reply-count {
 	background-color: #C0C0C0;
 }
 
-.topic-heading{
+.topic-heading {
 	background-color: #FFF !important;
 }
 
-.list-post-title-in-topic{
+.list-post-title-in-topic {
 	font-size: 180%;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-top: 0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-top: 0px;
 }
 
-@media (max-width: 768px){
-	.list-reply-count-xs{
-		display:inline-block !important;
+@media (max-width: 768px) {
+	.list-reply-count-xs {
+		display: inline-block !important;
 	}
-	.list-username{
+	.list-username {
 		display: none;
 	}
 }
 
-.topic-breadcrumb, .topic-breadcrumb a{
-	margin:0px;
-	color:#AAAAAA;
+.topic-breadcrumb, .topic-breadcrumb a {
+	margin: 0px;
+	color: #AAAAAA;
 }
 
-body{
-	font-family: "WenQuanYi Micro Hei","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
+body {
+	font-family: "WenQuanYi Micro Hei", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 html, html a {
-    -webkit-font-smoothing: antialiased;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+}
+
+.title-breadcrumb a {
+	color: #428bca;
+}
+
+.title-breadcrumb span:before {
+	content: "/\00a0";
+	padding: 0 5px;
+	color: #ccc;
+}
+
+a.add-new-btn {
+	line-height: 12px;
+	color: #FFF;
 }

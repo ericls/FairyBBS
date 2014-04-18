@@ -14,7 +14,7 @@
             {% if pager %}
             第{{ pager }}页-
             {% endif %}
-            {{conf.sitename}}
+            {% conf_value "sitename" %}
             {% endblock %}
         </title>
 

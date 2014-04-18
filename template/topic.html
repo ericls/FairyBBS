@@ -20,6 +20,10 @@
 					{% if request.user == topic.user%}
 					<a class="label-success label" href="{% url 'add_appendix' topic.id %}">添加附言</a>
 					{% endif %}
+					{% if request.user.is_superuser or topic.user == request.user %}
+					<a class="label-warning label" href="{% url 'edit_topic' topic.id %}">修改话题</a>
+					<a class="label-danger label" href="{% url 'delete_topic' topic.id %}">删除话题</a>
+					{% endif %}
 				</p>
 			</div>
 		</div>

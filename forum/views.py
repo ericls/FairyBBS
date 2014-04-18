@@ -36,7 +36,7 @@ def index(request):
     conf.user_count = profile.objects.count()
     conf.topic_count = topic.objects.count()
     conf.post_count = post.objects.count()
-    topics = topic.objects.all().order_by('-last_replied')[0:30]
+    topics = topic.objects.all().filter(deleted=False).order_by('-last_replied')[0:30]
     post_list_title = u'最新话题'
     return render_to_response('index.html', {'topics': topics, 'title': u'首页',
                                              'request': request,
@@ -92,13 +92,13 @@ def node_view(request, node_id):
     if page == '1':
         page = None
     n = node.objects.get(id=node_id)
-    topics = topic.objects.filter(node=n).order_by('-time_created')
+    topics = topic.objects.filter(node=n,deleted=False).order_by('-time_created')
     return render_to_response('node-view.html', {'request': request, 'title': n.title,
                                                  'conf': conf,
                                                  'topics': topics,
                                                  'node': n,
-                                                 'pager': page,
-                                                 'post_list_title': u'发表在%s中的话题' % (n.title), })
+                                                 'node_view': True,
+                                                 'pager': page,})
 
 
 def create_topic(request, node_id):
@@ -116,7 +116,6 @@ def create_topic(request, node_id):
         if not t.title:
             messages.add_message(request, messages.WARNING, u'请填写标题')
             return HttpResponseRedirect(reverse('create_topic', kwargs={'node_id':node_id}))
-            #return error(request, u'请填写标题')
         if not request.user.is_authenticated():
             return error(request, '请登陆', reverse('signin'))
         t.user = request.user
@@ -165,6 +164,35 @@ def del_reply(request, post_id):
     p.delete()
     return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t_id}))
 
+
+def del_topic(request, topic_id):
+    t = topic.objects.get(id=topic_id)
+    if request.user != t.user:
+        return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))
+    n_id = t.node.id
+    t.deleted = True
+    t.save()
+    return HttpResponseRedirect(reverse('node_view', kwargs={'node_id': n_id}))
+
+
+def edit_topic(request, topic_id):
+    t = topic.objects.get(id=topic_id)
+    if request.user != t.user:
+        return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))
+    if request.method == 'GET':
+        return render_to_response('edit-topic.html',{'request': request, 'conf': conf,
+                                                     'topic': t,
+                                                     'title': u'编辑话题'},
+                                  context_instance=RequestContext(request))
+    elif request.method == 'POST':
+        t.title = request.POST['title']
+        t.content = request.POST['content']
+        if not t.title:
+            messages.add_message(request, messages.WARNING, u'请填写标题')
+            return HttpResponseRedirect(reverse('edit_topic', kwargs={'topic_id': t.id}))
+        t.save()
+        return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))
+    
 
 def add_appendix(request, topic_id):
     t = topic.objects.get(id=topic_id)
