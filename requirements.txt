@@ -2,3 +2,4 @@ Django==1.6
 South==0.8.4
 Markdown==2.4
 Pygments==1.6
+django-pagination==1.07
