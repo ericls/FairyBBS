@@ -10,7 +10,7 @@ class topic(models.Model):
     user = models.ForeignKey(User, related_name='topics')
     title = models.CharField(max_length=160)
     content = models.TextField(blank=True, null=True)
-    rendered_content = models.TextField(blank=True, null=True)
+    content_rendered = models.TextField(blank=True, null=True)
     click = models.IntegerField(default=0)
     reply_count = models.IntegerField(default=0)
     node = models.ForeignKey('node', related_name='topics')
@@ -28,23 +28,23 @@ class topic(models.Model):
             new = False
         if not self.content:
             self.content = ''
-        self.rendered_content = markdown.markdown(self.content, ['codehilite'],
+        self.content_rendered = markdown.markdown(self.content, ['codehilite'],
                                                   safe_mode='escape')
         self.reply_count = self.post_set.all().count()
         to = []
-        for u in re.findall(r'@(.*?)\s', self.rendered_content):
+        for u in re.findall(r'@(.*?)\s', self.content_rendered):
             try:
                 user = User.objects.get(username=u)
             except:
                 pass
             else:
                 to.append(user)
-                self.rendered_content = re.sub('@%s' % (u),
+                self.content_rendered = re.sub('@%s' % (u),
                                                '@<a href="%s" class="mention">%s</a>'
                                                % (reverse('user_info',
                                                           kwargs={'user_id': user.id}),
                                                   u),
-                                               self.rendered_content)
+                                               self.content_rendered)
         super(topic, self).save(*args, **kwargs)
         if to and new:
             for t in to:
