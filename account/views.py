@@ -1,6 +1,7 @@
 #encoding=utf-8
 from account.models import profile, social
 from django.contrib import auth
+from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import password_reset, password_reset_confirm
@@ -61,14 +62,17 @@ def reg(request):
         try:
             alphanumeric(username)
         except:
-            return error(request, '用户名只允许英文字母、数字及下划线"_"(QQ登陆用户不受此限制)')
+            messages.add_message(request, messages.WARNING, u'用户名只允许英文字母、数字及下划线"_"(QQ登陆用户不受此限制)')
+            return HttpResponseRedirect(reverse('reg'))
 
         if User.objects.filter(username=username).exists():
-            return error(request, '用户已存在')
+            messages.add_message(request, messages.WARNING, u'用户已存在')
+            return HttpResponseRedirect(reverse('reg'))
 
         # TODO: 密码强度测试
         if password != password2 or password == '' or password2 == '':
-            return error(request, '两次输入的密码不一致或者为空')
+            messages.add_message(request, messages.WARNING, u'两次输入的密码不一致或者为空')
+            return HttpResponseRedirect(reverse('reg'))
 
         user = User.objects.create_user(username, email, password)
         user = authenticate(username=username, password=password)
@@ -87,8 +91,15 @@ def user_login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
+        
+        if not User.objects.filter(username=username).exists():
+            messages.add_message(request, messages.WARNING, u'用户名不存在')
+            return HttpResponseRedirect(reverse('signin'))
+
         if user is None:
-            return error(request, '登陆失败，请检查用户名密码是否错误')
+            messages.add_message(request, messages.WARNING, u'登陆失败，用户名与密码不匹配')
+            return HttpResponseRedirect(reverse('signin'))
+
         login(request, user)
         return HttpResponseRedirect(reverse('index'))
 
@@ -138,13 +149,17 @@ def change_password(request):
         old = request.POST['old-password']
         new = request.POST['password']
         if request.POST['password'] != request.POST['password2'] or request.POST['password'] == '' or request.POST['password2'] == '':
-            return error(request, '两次输入的密码不一致或者为空')
+            messages.add_message(request, messages.WARNING, u'两次输入的密码不一致或者为空')
+            return HttpResponseRedirect(reverse('change_password'))
+
         if authenticate(username=u.username, password=old):
             u.set_password(new)
             u.save()
-            return error(request, u'密码修改成功', reverse('index'))
+            messages.add_message(request, messages.SUCCESS, u'密码修改成功')
+            return HttpResponseRedirect(reverse('change_password'))
         else:
-            return error(request, u'填写错误，可能是原始密码错误或', reverse('change_password'))
+            messages.add_message(request, messages.WARNING, u'填写错误，可能是原始密码错误或')
+            return HttpResponseRedirect(reverse('change_password'))
 
 
 def user_avatar(request):

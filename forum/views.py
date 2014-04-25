@@ -76,7 +76,6 @@ def create_reply(request, topic_id):
         else:
             messages.add_message(request, messages.WARNING, u'请填写内容')
             return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id':topic_id}))
-            #return error(request, '请填写内容')
         r.user = request.user
         r.save()
         return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))

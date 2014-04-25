@@ -4,6 +4,15 @@
     <form class="panel-body" role="form" method="post" action="{% url 'reg' %}">
         <h2>注册</h2>
         {% csrf_token %}
+        {% if messages %}
+		<div class="messages">
+			{% for message in messages %}
+			<p class="text-{{ message.tags }}">
+				{{ message }}
+			</p>
+			{% endfor %}
+		</div>
+		{% endif %}
         <div class="form-group ">
             <label for="username">用户名（<i>只允许字母、数字、下划线</i>）</label>
             <input class="form-control" id="username" name="username" placeholder="只允许字母、数字、下划线" type="text">
