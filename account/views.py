@@ -5,7 +5,6 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import password_reset, password_reset_confirm
 from django.core.context_processors import csrf
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator
@@ -36,10 +35,8 @@ alphanumeric = RegexValidator(r'^[0-9a-zA-Z\_]*$', 'Only alphanumeric characters
 
 def user_info(request, user_id):
     u = User.objects.get(id=user_id)
-    
-    try:
-        u.profile
-    except ObjectDoesNotExist:
+
+    if not profile.objects.filter(user_id=u.id).exists():
         p = profile()
         p.user = u
         p.save()
@@ -66,15 +63,10 @@ def reg(request):
         except:
             return error(request, '用户名只允许英文字母、数字及下划线"_"(QQ登陆用户不受此限制)')
 
-        #todo 检测邮箱是否重复
-        try:
-            User.objects.get(username=username)
-        except:
-            pass
-        else:
+        if User.objects.filter(username=username).exists():
             return error(request, '用户已存在')
 
-        #todo 密码强度测试
+        # TODO: 密码强度测试
         if password != password2 or password == '' or password2 == '':
             return error(request, '两次输入的密码不一致或者为空')
 
