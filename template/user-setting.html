@@ -9,7 +9,7 @@
         <div class="form-group ">
             <label class="col-sm-2 control-label" for="website">网站</label>
             <div class="col-sm-10">
-                <input class="form-control" id="website" name="website" type="url" value="{{request.user.profile.website}}">
+                <input class="form-control" id="website" name="website" type="url" value="{% if request.user.profile.website%}{{request.user.profile.website}}{%endif%}">
             </div>
         </div>
         <div class="form-group ">

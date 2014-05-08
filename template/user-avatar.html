@@ -13,7 +13,11 @@
         </div>
         <div class="checkbox">
             <label>
-                <input checked type="checkbox" name="gravatar" value="true"> 使用Gravatar（上传的头像将不被显示）
+            	{% if request.user.profile.use_gravatar %}
+                <input type="checkbox" name="gravatar" value="true" checked> 使用Gravatar（上传的头像将不被显示）
+                {% else %}
+                <input type="checkbox" name="gravatar" value="true"> 使用Gravatar（上传的头像将不被显示）
+                {% endif %}
             </label>
         </div>
         <div class="form-group">
