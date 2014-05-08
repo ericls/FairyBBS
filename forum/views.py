@@ -49,7 +49,7 @@ def topic_view(request, topic_id):
     t.click += 1
     t.save()
     n = t.node
-    posts = t.post_set.all()
+    posts = t.post_set.filter(deleted=False)
     try:
         page = request.GET['page']
     except:
@@ -91,7 +91,7 @@ def node_view(request, node_id):
     if page == '1':
         page = None
     n = node.objects.get(id=node_id)
-    topics = topic.objects.filter(node=n,deleted=False).order_by('-time_created')
+    topics = topic.objects.filter(node=n,deleted=False)
     return render_to_response('node-view.html', {'request': request, 'title': n.title,
                                                  'conf': conf,
                                                  'topics': topics,
@@ -147,7 +147,7 @@ def recent(request):
         page = None
     if page == '1':
         page = None
-    topics = topic.objects.all().filter(deleted=False).order_by('-time_created')
+    topics = topic.objects.all().filter(deleted=False)
     return render_to_response('index.html', {'request': request, 'title': u'最近主题',
                                              'conf': conf,
                                              'topics': topics,
@@ -160,7 +160,8 @@ def recent(request):
 def del_reply(request, post_id):
     p = post.objects.get(id=post_id)
     t_id = p.topic.id
-    p.delete()
+    p.deleted = True
+    p.save()
     return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t_id}))
 
 
