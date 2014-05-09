@@ -34,7 +34,8 @@ class topic(models.Model):
         self.content_rendered = markdown.markdown(self.content, ['codehilite'],
                                                   safe_mode='escape')
         self.reply_count = self.post_set.filter(deleted=False).count()
-        self.last_replied = self.post_set.filter(deleted=False).latest('time_created').time_created
+        if self.reply_count:
+            self.last_replied = self.post_set.filter(deleted=False).latest('time_created').time_created
         to = []
         for u in re.findall(r'@(.*?)\s', self.content_rendered):
             try:
