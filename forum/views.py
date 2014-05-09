@@ -162,6 +162,7 @@ def del_reply(request, post_id):
     t_id = p.topic.id
     p.deleted = True
     p.save()
+    p.topic.save()
     return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t_id}))
 
 

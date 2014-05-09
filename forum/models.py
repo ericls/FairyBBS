@@ -33,7 +33,8 @@ class topic(models.Model):
             self.content = ''
         self.content_rendered = markdown.markdown(self.content, ['codehilite'],
                                                   safe_mode='escape')
-        self.reply_count = self.post_set.all().count()
+        self.reply_count = self.post_set.filter(deleted=False).count()
+        self.last_replied = self.post_set.filter(deleted=False).latest('time_created').time_created
         to = []
         for u in re.findall(r'@(.*?)\s', self.content_rendered):
             try:
@@ -78,6 +79,9 @@ class post(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
     deleted = models.BooleanField(default=False)
 
+    class Meta():
+        ordering = ['time_created']
+
     def __unicode__(self):
         return str(self.id) + self.topic.title
 
@@ -113,8 +117,6 @@ class post(models.Model):
                 m.post = self
                 m.topic = self.topic
                 m.save()
-        if new:
-            self.topic.last_replied = self.time_created
         self.topic.save()
 
 
