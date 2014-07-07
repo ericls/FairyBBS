@@ -1,0 +1,117 @@
+{% load settingsvalue %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{title}}-{% trans 'admin' %}-{% conf_value "sitename" %}</title>
+
+    <!-- Core CSS - Include with every page -->
+    <link href="/static/panel/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/panel/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Page-Level Plugin CSS - Dashboard -->
+    <link href="/static/panel/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <link href="/static/panel/css/plugins/timeline/timeline.css" rel="stylesheet">
+    <link href="/static/css/base.css" rel="stylesheet">
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="/static/panel/css/sb-admin.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">{% conf_value "sitename" %}-{% trans 'admin' %}</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="side-menu">
+                        
+                        <li>
+                        <a href="{% url 'panel:index' %}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+
+                        <li>
+                        <a href="#"><i class="fa fa-user fa-fw"></i> {% trans 'user management' %}<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                            <a href="{% url 'panel:user_manage' %}"><i class="fa fa-users fa-fw"></i> {% trans 'all users' %}</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                        </li> 
+
+                        <li>
+                        <a href="#"><i class="fa fa-square fa-fw"></i> {% trans 'node management' %}<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                            <a href="{% url 'panel:node_manage' %}"><i class="fa fa-sitemap fa-fw"></i> {% trans 'all nodes' %}</a>
+                            </li>
+
+                            <li>
+                            <a href="{% url 'panel:node_create' %}"><i class="fa fa-plus fa-fw"></i> {% trans 'create node' %}</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                        </li>
+
+                        <li>
+                        <a href="#"><i class="fa fa-comment fa-fw"></i> {% trans 'content management' %}<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                            <a href="{% url 'panel:topic_manage' %}"><i class="fa fa-comments fa-fw"></i> {% trans 'all topics' %}</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                        </li>
+
+                    </ul>
+                    <!-- /#side-menu -->
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            {% block main %}
+            {% endblock %}
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="/static/panel/js/jquery-1.10.2.js"></script>
+    <script src="/static/panel/js/bootstrap.min.js"></script>
+    <script src="/static/panel/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/static/panel/js/autocomplete.js"></script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="/static/panel/js/sb-admin.js"></script>
+
+    {% block footer_ext %}{% endblock %}
+</body>
+
+</html>

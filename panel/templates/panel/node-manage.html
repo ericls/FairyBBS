@@ -1,0 +1,70 @@
+{% extends 'panel/base.html' %}
+{% load i18n %}
+{% block main %}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">{% trans 'node management' %}</h1>
+    </div>
+</div>
+    <!-- /.col-lg-12 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  {% trans 'node management' %} 
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-default table-bordered table-hover" id="database">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>{% trans 'title' %}</th>
+                                    <th>{% trans 'edit' %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_ext %}
+
+<script src="/static/panel/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/panel/js/tabletools.js"></script>
+<script src="/static/panel/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script>
+$(document).ready(function() {
+        $('#database').dataTable({
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": "{% url 'panel:node_table_ss' %}",
+            "aoColumnDefs": [
+                      { 'bSortable': false, 'aTargets': [ -1 ] }
+                          ],
+                          "sDom": "<'row'<'col-sm-4'l><'col-sm-4'f><'col-sm-4'T>r>" + "t" + "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            "oTableTools": {
+                          "sRowSelect": "multi",
+                          "aButtons": [ "select_all", "select_none" ]
+                          },
+            });
+        });
+function selected_id(){
+    selected_rows = $('tr.active');
+    ids = []
+    selected_rows.each(
+            
+            function(){
+                ids.push($(this).context.cells[0].childNodes[0].data);
+            }
+            
+        )
+    return ids.toString()
+}
+</script>
+{% endblock %}

@@ -1,0 +1,189 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <etkids@163.com>, 2014.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-05 17:14+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: panel/templates/panel/base.html:11 panel/templates/panel/base.html.py:39
+msgid "admin"
+msgstr "后台"
+
+#: panel/templates/panel/base.html:55 panel/templates/panel/user-manage.html:6
+#: panel/views.py:22
+msgid "user management"
+msgstr "用户管理"
+
+#: panel/templates/panel/base.html:58
+#: panel/templates/panel/user-manage.html:14
+msgid "all users"
+msgstr "所有用户"
+
+#: panel/templates/panel/base.html:65 panel/templates/panel/node-manage.html:6
+#: panel/templates/panel/node-manage.html:14 panel/views.py:108
+msgid "node management"
+msgstr "节点管理"
+
+#: panel/templates/panel/base.html:68
+msgid "all nodes"
+msgstr "所有节点"
+
+#: panel/templates/panel/base.html:72 panel/templates/panel/node-create.html:7
+#: panel/views.py:167
+msgid "create node"
+msgstr "创建节点"
+
+#: panel/templates/panel/base.html:79
+msgid "content management"
+msgstr "内容管理"
+
+#: panel/templates/panel/base.html:82
+msgid "all topics"
+msgstr "所有话题"
+
+#: panel/templates/panel/node-create.html:16
+msgid "new node"
+msgstr "新节点"
+
+#: panel/templates/panel/node-create.html:24
+#: panel/templates/panel/node-edit.html:24
+#: panel/templates/panel/topic-manage.html:24
+msgid "node title"
+msgstr "节点标题"
+
+#: panel/templates/panel/node-create.html:28
+#: panel/templates/panel/node-edit.html:28
+msgid "node description"
+msgstr "节点描述"
+
+#: panel/templates/panel/node-create.html:37
+#: panel/templates/panel/node-edit.html:37
+#: panel/templates/panel/topic-edit.html:49
+#: panel/templates/panel/user-edit.html:98
+msgid "submit"
+msgstr "提交"
+
+#: panel/templates/panel/node-edit.html:7 panel/views.py:152
+msgid "edit node"
+msgstr "编辑节点"
+
+#: panel/templates/panel/node-manage.html:22
+#: panel/templates/panel/topic-edit.html:24
+#: panel/templates/panel/topic-manage.html:22
+msgid "title"
+msgstr "标题"
+
+#: panel/templates/panel/node-manage.html:23
+#: panel/templates/panel/topic-manage.html:25
+#: panel/templates/panel/user-manage.html:24 panel/views.py:65
+#: panel/views.py:141 panel/views.py:238
+msgid "edit"
+msgstr "编辑"
+
+#: panel/templates/panel/topic-edit.html:7 panel/views.py:191
+msgid "edit topic"
+msgstr "编辑话题"
+
+#: panel/templates/panel/topic-edit.html:28
+msgid "author"
+msgstr "作者"
+
+#: panel/templates/panel/topic-edit.html:32
+msgid "node"
+msgstr "节点"
+
+#: panel/templates/panel/topic-edit.html:36
+msgid "content"
+msgstr "内容"
+
+#: panel/templates/panel/topic-edit.html:40
+msgid "order(0-99,default:99)"
+msgstr "排序"
+
+#: panel/templates/panel/topic-manage.html:6
+#: panel/templates/panel/topic-manage.html:14 panel/views.py:182
+msgid "topic management"
+msgstr "话题管理"
+
+#: panel/templates/panel/topic-manage.html:23
+#: panel/templates/panel/user-edit.html:25
+#: panel/templates/panel/user-manage.html:22
+msgid "username"
+msgstr "用户名"
+
+#: panel/templates/panel/topic-manage.html:32
+msgid "delete selected"
+msgstr "删除选中项"
+
+#: panel/templates/panel/user-edit.html:7 panel/views.py:77
+msgid "edit user"
+msgstr "编辑用户"
+
+#: panel/templates/panel/user-edit.html:23
+msgid "identity"
+msgstr "身份信息"
+
+#: panel/templates/panel/user-edit.html:29
+msgid "password"
+msgstr "密码"
+
+#: panel/templates/panel/user-edit.html:30
+msgid "leave empty will not change the current password"
+msgstr "留空不修改"
+
+#: panel/templates/panel/user-edit.html:33
+#: panel/templates/panel/user-manage.html:23
+msgid "email"
+msgstr "Email"
+
+#: panel/templates/panel/user-edit.html:40
+msgid "user status"
+msgstr "用户状态"
+
+#: panel/templates/panel/user-edit.html:44
+#: panel/templates/panel/user-edit.html:46
+msgid "active"
+msgstr "激活的"
+
+#: panel/templates/panel/user-edit.html:53
+#: panel/templates/panel/user-edit.html:55
+msgid "superuser"
+msgstr "超级用户"
+
+#: panel/templates/panel/user-edit.html:63
+msgid "user profile"
+msgstr "用户资料"
+
+#: panel/templates/panel/user-edit.html:65
+msgid "nickname"
+msgstr "昵称"
+
+#: panel/templates/panel/user-edit.html:69
+msgid "location"
+msgstr "位置"
+
+#: panel/templates/panel/user-edit.html:73
+msgid "website"
+msgstr "网站"
+
+#: panel/templates/panel/user-edit.html:83
+#: panel/templates/panel/user-edit.html:87
+#: panel/templates/panel/user-edit.html:89
+msgid "use Gravatar"
+msgstr "使用Gravatar"
+
+#: panel/views.py:17
+msgid "home"
+msgstr "主页"

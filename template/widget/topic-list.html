@@ -1,0 +1,54 @@
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+<div class="panel panel-default">
+	<div class="panel-heading title-breadcrumb">
+		
+		
+			{% if post_list_title %}
+			{{post_list_title}}
+			{% else %}
+                <a href="{% url 'index' %}">{% trans 'home' %}</a> <span>{{node.title}}</span>
+			{% endif %}
+
+		{% if node_view %}
+		<a href="{% url 'create_topic' node.id %}" class="btn btn-sm btn-success pull-right add-new-btn">{% trans 'new topic' %}</a>
+		{% endif %}
+	</div>
+	{% if not topics %}
+	<div class="panel-body">
+		<div class="alert alert-info">
+			{% trans "sorry, but we can't find the topics you need" %}
+		</div>
+	</div>
+	{% endif %}
+	<ul class="list-group">
+		{% autopaginate topics 30 %}
+		{% for t in topics %}
+		<div class="list-group-item list-topic-item" id="topic-{{t.id}}">
+			<div class="row ">
+				<a href="{% url 'user_info' t.user.id %}" class="col-md-1 col-xs-2 col-sm-2"><img title="{{t.user.profile.username}}" class="avatar-middle" src="{{t.user.profile.avatar.middle}}"></a>
+				<div class="col-xs-9 col-md-10 col-sm-9">
+					<h3 class="list-post-title"><a href="{% url 'topic_view' t.id %}">{{t.title}}</a></h3>
+					<p class="list-meta">
+						<span class="label label-default list-meta-node"><a href="{% url 'node_view' t.node.id%}">{{t.node.title}}</a></span>
+						{% with clicks=t.click %}
+						<span class="list-count">{% blocktrans %}{{clicks}} clicks{% endblocktrans %}</span>
+						{% endwith %}
+						<span class="list-time">{{t.time_created | naturaltime}}</span>
+						<span class="list-username"><a href="{% url 'user_info' t.user.id %}">{{t.user.profile.username}}</a></span>
+						<span class="list-reply-count-xs visible-xs">{{reply_count}}</span>
+					</p>
+				</div>
+				<div class="col-xs-1 col-sm-1">
+					<span class="badge pull-right list-reply-count hidden-xs">{{t.reply_count}}</span>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</ul>
+	<div class="panel-footer">
+		{% paginate %}
+	</div>
+</div>
+

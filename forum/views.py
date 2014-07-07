@@ -1,9 +1,10 @@
-#encoding=utf-8
+# -*- coding: utf-8 -*-
 from account.models import profile
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.context_processors import csrf
+from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse
@@ -18,7 +19,7 @@ import operator
 
 
 def error(request, msg, back=None):
-    return render_to_response('error.html', {'conf': conf, 'title': '提示信息',
+    return render_to_response('error.html', {'conf': conf, 'title': _('notice'),
                                              'msg': msg,
                                              'back': back,
                                              'request': request, })
@@ -37,8 +38,8 @@ def index(request):
     conf.topic_count = topic.objects.count()
     conf.post_count = post.objects.count()
     topics = topic.objects.all().filter(deleted=False).order_by('-last_replied')[0:30]
-    post_list_title = u'最新话题'
-    return render_to_response('index.html', {'topics': topics, 'title': u'首页',
+    post_list_title = _('latest topics')
+    return render_to_response('forum/index.html', {'topics': topics, 'title': _('home'),
                                              'request': request,
                                              'post_list_title': post_list_title,
                                              'conf': conf})
@@ -56,7 +57,7 @@ def topic_view(request, topic_id):
         page = None
     if page == '1':
         page = None
-    return render_to_response('topic.html', {'conf': conf, 'title': t.title,
+    return render_to_response('forum/topic.html', {'conf': conf, 'title': t.title,
                                              'request': request,
                                              'topic': t,
                                              'node': n,
@@ -74,7 +75,7 @@ def create_reply(request, topic_id):
         if request.POST['content']:
             r.content = request.POST['content']
         else:
-            messages.add_message(request, messages.WARNING, u'请填写内容')
+            messages.add_message(request, messages.WARNING, _('content cannot be empty'))
             return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id':topic_id}))
         r.user = request.user
         r.save()
@@ -92,7 +93,7 @@ def node_view(request, node_id):
         page = None
     n = node.objects.get(id=node_id)
     topics = topic.objects.filter(node=n,deleted=False)
-    return render_to_response('node-view.html', {'request': request, 'title': n.title,
+    return render_to_response('forum/node-view.html', {'request': request, 'title': n.title,
                                                  'conf': conf,
                                                  'topics': topics,
                                                  'node': n,
@@ -103,7 +104,7 @@ def node_view(request, node_id):
 def create_topic(request, node_id):
     n = node.objects.get(id=node_id)
     if request.method == 'GET':
-        return render_to_response('create-topic.html', {'node': n, 'title': u'创建主题',
+        return render_to_response('forum/create-topic.html', {'node': n, 'title': _('create topic'),
                                                         'request': request,
                                                         'conf': conf},
                                   context_instance=RequestContext(request))
@@ -113,7 +114,7 @@ def create_topic(request, node_id):
         t.node = n
         t.title = request.POST['title']
         if not t.title:
-            messages.add_message(request, messages.WARNING, u'请填写标题')
+            messages.add_message(request, messages.WARNING, _('title cannot be empty'))
             return HttpResponseRedirect(reverse('create_topic', kwargs={'node_id':node_id}))
         if not request.user.is_authenticated():
             return error(request, '请登陆', reverse('signin'))
@@ -134,10 +135,10 @@ def search(request, keyword):
         page = None
     if page == '1':
         page = None
-    return render_to_response('index.html', {'request': request, 'title': u'%s-搜索结果' % (keyword),
+    return render_to_response('forum/index.html', {'request': request, 'title': _('%s-search result') % (keyword),
                                              'conf': conf, 'pager': page,
                                              'topics': topics,
-                                             'post_list_title': u'搜索关于%s的话题' % (keyword), })
+                                             'post_list_title': _('search %s') % (keyword), })
 
 
 def recent(request):
@@ -148,12 +149,12 @@ def recent(request):
     if page == '1':
         page = None
     topics = topic.objects.all().filter(deleted=False)
-    return render_to_response('index.html', {'request': request, 'title': u'最近主题',
+    return render_to_response('forum/index.html', {'request': request, 'title': _('latest topics'),
                                              'conf': conf,
                                              'topics': topics,
                                              'recent': 'reccent',
                                              'pager': page,
-                                             'post_list_title': u'最近发表的话题', })
+                                             'post_list_title': _('latest posted topics'), })
 
 
 @staff_member_required
@@ -181,15 +182,15 @@ def edit_topic(request, topic_id):
     if request.user != t.user and (not request.user.is_superuser):
         return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))
     if request.method == 'GET':
-        return render_to_response('edit-topic.html',{'request': request, 'conf': conf,
+        return render_to_response('forum/edit-topic.html',{'request': request, 'conf': conf,
                                                      'topic': t,
-                                                     'title': u'编辑话题'},
+                                                     'title': _('topic edit')},
                                   context_instance=RequestContext(request))
     elif request.method == 'POST':
         t.title = request.POST['title']
         t.content = request.POST['content']
         if not t.title:
-            messages.add_message(request, messages.WARNING, u'请填写标题')
+            messages.add_message(request, messages.WARNING, _('title cannot be empty'))
             return HttpResponseRedirect(reverse('edit_topic', kwargs={'topic_id': t.id}))
         t.save()
         return HttpResponseRedirect(reverse('topic_view', kwargs={'topic_id': t.id}))
@@ -199,9 +200,9 @@ def add_appendix(request, topic_id):
     t = topic.objects.get(id=topic_id)
     n = t.node
     if request.user != t.user:
-        return error(request, u'请不要给其他用户的话题添加附言')
+        return error(request, _('you cannot add appendix to other people\'s topic' ))
     if request.method == 'GET':
-        return render_to_response('append.html', {'request': request, 'title': u'添加附言',
+        return render_to_response('forum/append.html', {'request': request, 'title': _('add appendix'),
                                                   'node': n, 'conf': conf,
                                                   'topic': t, },
                                   context_instance=RequestContext(request))
@@ -209,7 +210,7 @@ def add_appendix(request, topic_id):
         a = appendix()
         a.content = request.POST['content']
         if not a.content:
-            messages.add_message(request, messages.WARNING, u'内容不能为空')
+            messages.add_message(request, messages.WARNING, _('content cannot be empty'))
             return HttpResponseRedirect(reverse('add_appendix', kwargs={'topic_id': t.id}))
         a.topic = t
         a.save()
@@ -219,6 +220,6 @@ def add_appendix(request, topic_id):
 def node_all(request):
     nodes = {}
     nodes[u'分类1'] = list(node.objects.filter(id__in=[1]).all())
-    return render_to_response('node-all.html', {'request': request, 'title': u'所有节点',
+    return render_to_response('forum/node-all.html', {'request': request, 'title': _('all nodes'),
                                                 'conf': conf,
                                                 'nodes': nodes, })

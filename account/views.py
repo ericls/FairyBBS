@@ -1,6 +1,9 @@
 #encoding=utf-8
+from PIL import Image
 from account.models import profile, social
 from django.contrib import auth
+from django.conf import settings
+from django.utils.translation import ugettext as _
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
@@ -12,6 +15,7 @@ from django.core.validators import RegexValidator
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.utils.translation import LANGUAGE_SESSION_KEY
 from fairy import conf
 from forum.models import topic, post, node
 from forum.views import error
@@ -42,16 +46,16 @@ def user_info(request, user_id):
         p.user = u
         p.save()
 
-    return render_to_response('user-info.html', {'request': request, 'title': u'用户信息',
+    return render_to_response('account/user-info.html', {'request': request, 'title': _('user info'),
                                                  'user': u, 'conf': conf,
                                                  'topics': u.profile.latest_activity()['topic'],
-                                                 'post_list_title': u'用户%s的最新主题' % (u.profile.username())})
+                                                 'post_list_title': _('%s\'s topics') % (u.profile.username())})
 
 
 
 def reg(request):
     if request.method == 'GET':
-        return render_to_response('reg.html', {'conf': conf, 'title': u'注册'},
+        return render_to_response('account/reg.html', {'conf': conf, 'title': _('register')},
                                   context_instance=RequestContext(request))
     elif request.method == 'POST':
         username = request.POST['username']
@@ -62,16 +66,16 @@ def reg(request):
         try:
             alphanumeric(username)
         except:
-            messages.add_message(request, messages.WARNING, u'用户名只允许英文字母、数字及下划线"_"(QQ登陆用户不受此限制)')
+            messages.add_message(request, messages.WARNING,_('username can only contain letters digits and underscore'))
             return HttpResponseRedirect(reverse('reg'))
 
         if User.objects.filter(username=username).exists():
-            messages.add_message(request, messages.WARNING, u'用户已存在')
+            messages.add_message(request, messages.WARNING, _('username already exists'))
             return HttpResponseRedirect(reverse('reg'))
 
         # TODO: 密码强度测试
         if password != password2 or password == '' or password2 == '':
-            messages.add_message(request, messages.WARNING, u'两次输入的密码不一致或者为空')
+            messages.add_message(request, messages.WARNING, _('passwords don\'t match, or are blank'))
             return HttpResponseRedirect(reverse('reg'))
 
         user = User.objects.create_user(username, email, password)
@@ -85,7 +89,7 @@ def reg(request):
 
 def user_login(request):
     if request.method == 'GET':
-        return render_to_response('login.html', {'conf': conf, 'title': u'登陆'},
+        return render_to_response('account/login.html', {'conf': conf, 'title': _('sign in')},
                                   context_instance=RequestContext(request))
     elif request.method == 'POST':
         username = request.POST['username']
@@ -93,11 +97,11 @@ def user_login(request):
         user = authenticate(username=username, password=password)
         
         if not User.objects.filter(username=username).exists():
-            messages.add_message(request, messages.WARNING, u'用户名不存在')
+            messages.add_message(request, messages.WARNING, _('username does not exist'))
             return HttpResponseRedirect(reverse('signin'))
 
         if user is None:
-            messages.add_message(request, messages.WARNING, u'登陆失败，用户名与密码不匹配')
+            messages.add_message(request, messages.WARNING, _('password is invalid'))
             return HttpResponseRedirect(reverse('signin'))
 
         login(request, user)
@@ -106,18 +110,18 @@ def user_login(request):
 
 def setting(request):
     if request.method == 'GET':
-        return render_to_response('user-setting.html', {'request': request,
+        return render_to_response('account/user-setting.html', {'request': request,
                                                         'conf': conf,
-                                                        'title': u'设置'},
+                                                        'title': _('settings')},
                                   context_instance=RequestContext(request))
     elif request.method == 'POST':
         request.user.profile.website = request.POST['website']
         request.user.email = request.POST['email']
         request.user.profile.save()
         request.user.save()
-        return render_to_response('user-setting.html', {'request': request,
+        return render_to_response('account/user-setting.html', {'request': request,
                                                         'conf': conf,
-                                                        'title': u'设置'},
+                                                        'title': _('settings')},
                                   context_instance=RequestContext(request))
 
 
@@ -132,7 +136,7 @@ def view_mention(request):
     for m in new:
         m.read = True
         m.save()
-    return render_to_response('user-mention.html', {'request': request, 'title': u'查看提醒',
+    return render_to_response('account/user-mention.html', {'request': request, 'title': _('mentions'),
                                                     'conf': conf,
                                                     'new': new,
                                                     'old': old, },
@@ -142,30 +146,30 @@ def view_mention(request):
 def change_password(request):
     u = request.user
     if request.method == 'GET':
-        return render_to_response('change-password.html', {'request': request, 'title': u'修改密码',
+        return render_to_response('account/change-password.html', {'request': request, 'title': _('change password'),
                                                            'conf': conf},
                                   context_instance=RequestContext(request))
     elif request.method == 'POST':
         old = request.POST['old-password']
         new = request.POST['password']
         if request.POST['password'] != request.POST['password2'] or request.POST['password'] == '' or request.POST['password2'] == '':
-            messages.add_message(request, messages.WARNING, u'两次输入的密码不一致或者为空')
+            messages.add_message(request, messages.WARNING, _('passwords don\'t match, or are blank'))
             return HttpResponseRedirect(reverse('change_password'))
 
         if authenticate(username=u.username, password=old):
             u.set_password(new)
             u.save()
-            messages.add_message(request, messages.SUCCESS, u'密码修改成功')
+            messages.add_message(request, messages.SUCCESS, _('password updated successfully'))
             return HttpResponseRedirect(reverse('change_password'))
         else:
-            messages.add_message(request, messages.WARNING, u'填写错误，可能是原始密码错误或')
+            messages.add_message(request, messages.WARNING, _('unable to change your password, the current password may be invalid'))
             return HttpResponseRedirect(reverse('change_password'))
 
 
 def user_avatar(request):
     u = request.user
     if request.method == 'GET':
-        return render_to_response('user-avatar.html', {'request': request, 'title': u'头像设置',
+        return render_to_response('account/user-avatar.html', {'request': request, 'title': u'头像设置',
                                                        'conf': conf},
                                   context_instance=RequestContext(request))
     else:
@@ -178,24 +182,40 @@ def user_avatar(request):
                 return error(request, u'文件太大')
             if (extension not in ['.jpg', '.png', '.gif']) or ('image' not in f.content_type):
                 return error(request, u'类型不允许')
-            name = storage.save(storage.get_available_name(str(request.user.id) + extension), f)
+            im = Image.open(f)
+            im.thumbnail((120,120))
+            name = storage.get_available_name(str(u.id)) + '.png'
             url = storage.url(name)
             request.user.profile.avatar_url = url
-        request.user.profile.save()
+            im.save('%s/%s' % (storage.location, name), 'PNG')
+        u.profile.save()
         return HttpResponseRedirect(reverse('user_avatar'))
 
 
 def reset_confirm(request, uidb64=None, token=None):
-    return password_reset_confirm(request, template_name='reset-password-confirm.html',
+    return password_reset_confirm(request, template_name='account/reset-password-confirm.html',
         uidb64=uidb64, token=token, post_reset_redirect=reverse('signin'))
 
 
 def reset(request):
-    return password_reset(request, template_name='reset-password.html',
-        email_template_name='reset-password-email.html',
-        subject_template_name='reset-password-subject.txt',
+    return password_reset(request, template_name='account/reset-password.html',
+        email_template_name='account/reset-password-email.html',
+        subject_template_name='account/reset-password-subject.txt',
         post_reset_redirect=reverse('signin'))
 
+
+def set_lang(request):
+    # the lang_code must be in the LANGUAGES tuple
+    if request.method == 'GET':
+        lang_code = request.GET['lang']
+        if hasattr(request, 'session'):
+            request.session[LANGUAGE_SESSION_KEY] = lang_code
+        else:
+            response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code,
+                                max_age=settings.LANGUAGE_COOKIE_AGE,
+                                path=settings.LANGUAGE_COOKIE_PATH,
+                                domain=settings.LANGUAGE_COOKIE_DOMAIN)
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 ###############
 #oauth related#

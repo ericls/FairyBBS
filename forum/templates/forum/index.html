@@ -1,0 +1,14 @@
+{% extends 'base-with-sidebar.html' %}
+{% block header_ext%}
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+{% endblock %}
+{% block left %}
+{% include 'topic-list.html' %}
+{% endblock %}
+{% block right %}
+{% include 'user-panel.html' %}
+{% include 'node.html' %}
+{% include 'links.html' %}
+{% include 'stat.html' %}
+{% endblock %}

@@ -17,9 +17,10 @@ class topic(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
     last_replied = models.DateTimeField(blank=True, null=True)
     deleted = models.BooleanField(default=False)
+    order = models.IntegerField(default=10)
     
     class Meta():
-        ordering = ['-time_created']
+        ordering = ['order' ,'-time_created']
 
     def __unicode__(self):
         return self.title

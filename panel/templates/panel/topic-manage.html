@@ -1,0 +1,92 @@
+{% extends 'panel/base.html' %}
+{% load i18n %}
+{% block main %}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">{% trans 'topic management' %}</h1>
+    </div>
+</div>
+    <!-- /.col-lg-12 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {% trans 'topic management' %}
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-default table-bordered table-hover" id="database">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>{% trans 'title' %}</th>
+                                    <th>{% trans 'username' %}</th>
+                                    <th>{% trans 'node title' %}</th>
+                                    <th>{% trans 'edit' %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a class="btn btn-danger" id="bulk-delete">{% trans 'delete selected' %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_ext %}
+
+<script src="/static/panel/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/panel/js/tabletools.js"></script>
+<script src="/static/panel/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script>
+$(document).ready(function() {
+        $('#database').dataTable({
+            "bProcessing": true,
+            "bServerSide": true,
+            "bPaginate": true,
+            "sAjaxSource": "{% url 'panel:topic_table_ss' %}",
+            "aoColumnDefs": [
+                      { 'bSortable': false, 'aTargets': [ -1 ] }
+                          ],
+                          "sDom": "<'row'<'col-sm-4'l><'col-sm-4'f><'col-sm-4'T>r>" + "t" + "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            "oTableTools": {
+                          "sRowSelect": "multi",
+                          "aButtons": [ "select_all", "select_none" ]
+                          },
+            });
+        });
+function selected_id(){
+    selected_rows = $('tr.active');
+    ids = []
+    selected_rows.each(
+            
+            function(){
+                ids.push($(this).context.cells[0].childNodes[0].data);
+            }
+            
+        )
+    return ids.toString()
+}
+$(document).ready(
+        
+        function(){
+        
+            $('#bulk-delete').click(
+                
+                function(){
+                
+                    $.get('{% url "panel:topic_bulk_delete" %}', {'ids': selected_id()});
+                    location.reload();
+                
+                }
+
+                );
+        
+        }
+        
+        );
+</script>
+{% endblock %}

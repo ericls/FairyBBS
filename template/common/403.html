@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+错误信息
+{% endblock %}
+{% block inside_row %}
+<div class="panel panel-default col-md-6 col-md-offset-3">
+    <div class="text-center alert alert-danger" style="margin-top:10px;">
+    <p>无权访问</p>
+    </div>
+    <a href="{% url 'index' %}" class="btn btn-block btn-info" style="margin-bottom:10px;">Go back</a>
+</div>
+{% endblock %}

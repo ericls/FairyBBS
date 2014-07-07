@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for fairy project.
-
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
 
@@ -30,22 +30,25 @@ ALLOWED_HOSTS = ['']
 # Application definition
 
 INSTALLED_APPS = (
+    'account',
+    'forum',
+    'pagination',
+    'panel',
+    'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'south',
-    'forum',
-    'account',
-    'pagination',
+    #'south',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -62,8 +65,8 @@ WSGI_APPLICATION = 'fairy.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'USER': '',
         'PASSWORD': '',
     }
@@ -94,7 +97,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'template'),)
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'template'),
+    os.path.join(BASE_DIR, 'template/common'),
+    os.path.join(BASE_DIR, 'template/widget'),
+    )
 
 MAX_UPLOAD_SIZE = "524288"
 
@@ -106,3 +113,5 @@ EMAIL_HOST_PASSWORD = ''
   
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
+
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)

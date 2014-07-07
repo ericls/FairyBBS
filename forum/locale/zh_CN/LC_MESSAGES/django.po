@@ -1,0 +1,170 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <etkids@163.com>, 2014.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-06 13:28+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/forum/append.html:7
+#, python-format
+msgid ""
+"\n"
+"\t\t\tcreate appendix to topic:%(topic)s  <!-- FIXME: does not rendered "
+"correctly -->\n"
+"\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t创建主题 %(topic)s 的附言  <!-- FIXME: does not rendered correctly --"
+">\n"
+"\t\t\t"
+
+#: templates/forum/append.html:25 templates/forum/append.html.py:26
+#: templates/forum/create-topic.html:28 templates/forum/create-topic.html:29
+#: templates/forum/edit-topic.html:28 templates/forum/edit-topic.html.py:29
+#: templates/forum/topic.html:127
+msgid "content"
+msgstr "内容"
+
+#: templates/forum/append.html:29 templates/forum/create-topic.html:33
+#: templates/forum/edit-topic.html:33 templates/forum/topic.html:132
+msgid "preview"
+msgstr "预览"
+
+#: templates/forum/append.html:31 templates/forum/create-topic.html:36
+#: templates/forum/edit-topic.html:36 templates/forum/topic.html:134
+msgid "submit"
+msgstr "提交"
+
+#: templates/forum/create-topic.html:6 views.py:42
+msgid "home"
+msgstr "首页"
+
+#: templates/forum/create-topic.html:8
+msgid "new topic"
+msgstr "新话题"
+
+#: templates/forum/create-topic.html:24 templates/forum/create-topic.html:25
+#: templates/forum/edit-topic.html:24 templates/forum/edit-topic.html.py:25
+msgid "title"
+msgstr "标题"
+
+#: templates/forum/create-topic.html:45
+msgid "please sign in before post "
+msgstr "登陆后方可发言"
+
+#: templates/forum/create-topic.html:47 templates/forum/topic.html:145
+msgid "sign in"
+msgstr "登陆"
+
+#: templates/forum/edit-topic.html:7
+msgid "edit topic"
+msgstr "编辑话题"
+
+#: templates/forum/node-all.html:6
+msgid "node navigation"
+msgstr "节点导航"
+
+#: templates/forum/topic.html:22 views.py:205
+msgid "add appendix"
+msgstr "添加附言"
+
+#: templates/forum/topic.html:25
+msgid "edit"
+msgstr "编辑"
+
+#: templates/forum/topic.html:26 templates/forum/topic.html.py:76
+msgid "delete"
+msgstr "删除"
+
+#: templates/forum/topic.html:40
+msgid "appendix %(number)s"
+msgstr "第 %(number)s 条附言"
+
+#: templates/forum/topic.html:53
+#, python-format
+msgid ""
+"\n"
+"\t\t\t%(reply_count)s reply\n"
+"\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t%(reply_count)s replies\n"
+"\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t%(reply_count)s 条回复\n"
+"\t\t\t"
+msgstr[1] ""
+"\n"
+"\t\t\t%(reply_count)s 条回复\n"
+"\t\t\t"
+
+#: templates/forum/topic.html:59 templates/forum/topic.html.py:101
+msgid "no replies yet"
+msgstr "暂无回复"
+
+#: templates/forum/topic.html:110
+msgid "reply"
+msgstr "回复"
+
+#: templates/forum/topic.html:143
+msgid "please sign in before reply"
+msgstr "登录后方可回复"
+
+#: views.py:22
+msgid "notice"
+msgstr "提醒"
+
+#: views.py:41 views.py:152
+msgid "latest topics"
+msgstr "最近的主题"
+
+#: views.py:78 views.py:213
+msgid "content cannot be empty"
+msgstr "内容不能为空"
+
+#: views.py:107
+msgid "create topic"
+msgstr "创建主题"
+
+#: views.py:117 views.py:193
+msgid "title cannot be empty"
+msgstr "标题不能为空"
+
+#: views.py:138
+#, python-format
+msgid "%s-search result"
+msgstr "%s-搜索结果"
+
+#: views.py:141
+#, python-format
+msgid "search %s"
+msgstr "搜索 %s"
+
+#: views.py:157
+msgid "latest posted topics"
+msgstr "最近发表的话题"
+
+#: views.py:187
+msgid "topic edit"
+msgstr "话题编辑"
+
+#: views.py:203
+msgid "you cannot add appendix to other people's topic"
+msgstr "请不要给其他用户的主题添加附言"
+
+#: views.py:223
+msgid "all nodes"
+msgstr "所有节点"

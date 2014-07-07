@@ -1,0 +1,167 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <etkids@163.com>, 2014.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-05 17:14+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: account/templates/account/change-password.html:6
+#: account/templates/account/user-setting.html:29 account/views.py:147
+msgid "change password"
+msgstr "修改密码"
+
+#: account/templates/account/change-password.html:20
+msgid "current password"
+msgstr "原始密码"
+
+#: account/templates/account/change-password.html:26
+msgid "new password"
+msgstr "新密码"
+
+#: account/templates/account/change-password.html:33
+msgid "new password again"
+msgstr "重复"
+
+#: account/templates/account/change-password.html:42
+#: account/templates/account/user-avatar.html:29
+#: account/templates/account/user-setting.html:27
+msgid "update"
+msgstr "更新"
+
+#: account/templates/account/login.html:6
+#: account/templates/account/login.html:29 account/views.py:90
+msgid "sign in"
+msgstr "登陆"
+
+#: account/templates/account/login.html:18
+#: account/templates/account/reg.html:18
+msgid "username"
+msgstr "用户名"
+
+#: account/templates/account/login.html:23
+#: account/templates/account/reg.html:28
+msgid "password"
+msgstr "密码"
+
+#: account/templates/account/login.html:31
+msgid "reg?"
+msgstr "注册？"
+
+#: account/templates/account/login.html:32
+msgid "forget password?"
+msgstr "忘记密码？"
+
+#: account/templates/account/reg.html:6 account/views.py:56
+msgid "register"
+msgstr "注册"
+
+#: account/templates/account/reg.html:18 account/templates/account/reg.html:19
+msgid "letters,digits,underscore"
+msgstr "字母，数字，下划线"
+
+#: account/templates/account/reg.html:23
+msgid "Email"
+msgstr "Email"
+
+#: account/templates/account/reg.html:33
+msgid "repeat password"
+msgstr "重复密码"
+
+#: account/templates/account/reg.html:39
+#: account/templates/account/reset-password-confirm.html:44
+#: account/templates/account/reset-password.html:43
+msgid "submit"
+msgstr "提交"
+
+#: account/templates/account/reg.html:41
+msgid "sign in?"
+msgstr "已有账户？"
+
+#: account/templates/account/reset-password-confirm.html:5
+#: account/templates/account/reset-password-confirm.html:35
+#: account/templates/account/reset-password.html:5
+#: account/templates/account/reset-password.html:35
+msgid "reset password"
+msgstr "密码重置"
+
+#: account/templates/account/user-avatar.html:6
+#: account/templates/account/user-setting.html:30
+msgid "avatar settings"
+msgstr "头像设置"
+
+#: account/templates/account/user-avatar.html:11
+msgid "upload new avatar(leave blank will not change your current avatar)"
+msgstr "上传新头像（留空不修改）"
+
+#: account/templates/account/user-avatar.html:13
+msgid "maximum 512K, png,jpg and gif only"
+msgstr "最大512k，png,jpg和gif格式"
+
+#: account/templates/account/user-avatar.html:15
+msgid "Use Gravatar"
+msgstr "使用Gravatar"
+
+#: account/templates/account/user-setting.html:6
+msgid "user settings"
+msgstr "用户设置"
+
+#: account/templates/account/user-setting.html:11
+msgid "website"
+msgstr "网站"
+
+#: account/views.py:47
+msgid "user info"
+msgstr "用户信息"
+
+#: account/views.py:50
+#, python-format
+msgid "%s's topics"
+msgstr "%s的话题"
+
+#: account/views.py:67
+msgid "username can only contain letters digits and underscore"
+msgstr "用户名只能包含字母，数字和下划线"
+
+#: account/views.py:71
+msgid "username already exists"
+msgstr "用户名已经存在"
+
+#: account/views.py:76 account/views.py:154
+msgid "passwords don't match, or are blank"
+msgstr "密码不匹配或为空"
+
+#: account/views.py:98
+msgid "username does not exist"
+msgstr "用户名不存在"
+
+#: account/views.py:102
+msgid "password is invalid"
+msgstr "密码不正确"
+
+#: account/views.py:113 account/views.py:122
+msgid "settings"
+msgstr "设置"
+
+#: account/views.py:137
+msgid "mentions"
+msgstr "提醒"
+
+#: account/views.py:160
+msgid "password updated successfully"
+msgstr "密码修改成功"
+
+#: account/views.py:163
+msgid "unable to change your password, the current password may be invalid"
+msgstr "错误，可能是原始密码不对"

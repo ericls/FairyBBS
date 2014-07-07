@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'', include('forum.urls')),
     url(r'^user/', include('account.urls')),
     url(r'^api/forum/', include(forum.urls.api_urlpatterns)),
+    url(r'^panel/', include('panel.urls', namespace='panel', app_name='panel')),
 )
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -15,10 +15,13 @@ lib/
 lib64/
 parts/
 sdist/
+venv/
 var/
+static/upload/
 *.egg-info/
 .installed.cfg
 *.egg
+*.sublime*
 
 # Installer logs
 pip-log.txt
@@ -48,4 +51,5 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+
 db.sqlite3

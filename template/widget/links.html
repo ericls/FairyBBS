@@ -1,0 +1,18 @@
+{% load i18n %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+                {% trans 'links' %}
+        </h3>
+    </div>
+    <ul class="list-group">
+        <!--li class="list-group-item">
+            <a href="http://letgoof.me">eric</a>
+        </li-->
+        {% for key,val in conf.links.items %}
+        <li class="list-group-item">
+            <a href="{{val}}">{{key}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

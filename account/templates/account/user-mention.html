@@ -1,0 +1,78 @@
+{% extends 'base-with-sidebar.html' %}
+{% block left %}
+{% load humanize %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <p class="panel-title">
+            Unread Mentions
+        </p>
+    </div>
+    <ul class="list-group">
+        {% for m in new %}
+        <div class="list-group-item list-topic-item" id="post-{{p.id}}">
+            <div class="row ">
+                <a href="{% url 'user_info' m.sender.id %}" class="col-xs-1"><img title="{{m.sender.profile.username}}" class="avatar-middle" src="{{m.sender.profile.avatar.middle}}"></a>
+                <div class="col-xs-10">
+                    <div class="reply-author">
+                        <a href="{% url 'user_info' m.sender.id %}">{{m.sender.profile.username}}</a>
+                        <span class="list-time">{{m.time_created | naturaltime}}</span>
+                    </div>
+                    <div class="reply-content">
+                        Mentioned you in
+                        {% if m.post %}
+                        post 
+                        <a href="{% url 'topic_view' m.topic.id %}#post-{{m.post.id}}" > reply:{{m.topic.title}}</a>
+                        {% else %}
+                        topic 
+                        <a href="{% url 'topic_view' m.topic.id %}" > {{m.topic.title}}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <p class="panel-title">
+            Old Mentions
+        </p>
+    </div>
+    <ul class="list-group">
+        {% for m in old %}
+        <div class="list-group-item list-topic-item" id="post-{{p.id}}">
+            <div class="row ">
+                <a href="{% url 'user_info' m.sender.id %}" class="col-xs-1"><img title="{{m.sender.profile.username}}" class="avatar-middle" src="{{m.sender.profile.avatar.middle}}"></a>
+                <div class="col-xs-10">
+                    <div class="reply-author">
+                        <a href="{% url 'user_info' m.sender.id %}">{{m.sender.profile.username}}</a>
+                        <span class="list-time">{{m.time_created | naturaltime}}</span>
+                    </div>
+                    <div class="reply-content">
+                        Mentioned you in
+                        {% if m.post %}
+                        post 
+                        <a href="{% url 'topic_view' m.topic.id %}#post-{{m.post.id}}" > reply:{{m.topic.title}}</a>
+                        {% else %}
+                        topic 
+                        <a href="{% url 'topic_view' m.topic.id %}" > {{m.topic.title}}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}
+{% block right %}
+{% include 'user-panel.html' %}
+{% include 'node.html' %}
+{% include 'links.html' %}
+{% endblock %}
+

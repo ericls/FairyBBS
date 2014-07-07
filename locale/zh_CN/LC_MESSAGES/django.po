@@ -1,0 +1,104 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-05 17:14+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: template/common/base.html:17
+#, python-format
+msgid "page %(pager)s"
+msgstr "第%(pager)s页"
+
+#: template/common/base.html:49
+msgid "recent post"
+msgstr "最近主题"
+
+#: template/common/base.html:50
+msgid "all nodes"
+msgstr "所有节点"
+
+#: template/common/base.html:55
+msgid "enter key words"
+msgstr "输入关键词"
+
+#: template/common/base.html:58
+msgid "Search"
+msgstr "搜索"
+
+#: template/widget/links.html:5
+msgid "links"
+msgstr "链接"
+
+#: template/widget/node.html:5
+msgid "nodes"
+msgstr "节点"
+
+#: template/widget/stat.html:5
+msgid "site stat"
+msgstr "站点统计"
+
+#: template/widget/stat.html:10
+msgid "number of users"
+msgstr "用户数量"
+
+#: template/widget/stat.html:13
+msgid "number of topics"
+msgstr "话题数量"
+
+#: template/widget/stat.html:16
+msgid "number of replies"
+msgstr "回复数目"
+
+#: template/widget/topic-list.html:11
+msgid "home"
+msgstr "主页"
+
+#: template/widget/topic-list.html:15
+msgid "new topic"
+msgstr "新话题"
+
+#: template/widget/topic-list.html:21
+msgid "sorry, but we can't find the topics you need"
+msgstr "抱歉，没有找到你想要的内容"
+
+#: template/widget/topic-list.html:36
+#, python-format
+msgid "%(clicks)s clicks"
+msgstr "%(clicks)s次点击"
+
+#: template/widget/user-panel.html:16
+msgid "info"
+msgstr "信息"
+
+#: template/widget/user-panel.html:19
+msgid "settings"
+msgstr "设置"
+
+#: template/widget/user-panel.html:22
+msgid "log out"
+msgstr "登出"
+
+#: template/widget/user-panel.html:33
+msgid "sign in"
+msgstr "登陆"
+
+#: template/widget/user-panel.html:36
+msgid "reg"
+msgstr "注册"
+
+#: template/widget/user-panel.html:54
+msgid "new messages"
+msgstr "未读消息"

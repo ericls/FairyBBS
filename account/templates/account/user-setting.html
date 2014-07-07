@@ -1,0 +1,40 @@
+{% extends 'base-with-sidebar.html' %}
+{% load i18n %}
+{% block left %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{% trans 'user settings' %}</h3>
+    </div>
+    <form class="form-horizontal panel-body" method="post" action="">
+        {% csrf_token %}
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="website">{% trans 'website' %}</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="website" name="website" type="url" value="{% if request.user.profile.website%}{{request.user.profile.website}}{%endif%}">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" for="email">Email</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="email" name="email" type="email" value="{{request.user.email}}">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default">
+                    {% trans 'update' %}
+                </button>
+                <a class="btn btn-link" href="{% url 'change_password' %}">{% trans 'change password' %}</a>
+                <a class="btn btn-link" href="{% url 'user_avatar' %}">{% trans 'avatar settings' %}</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block right %}
+{% include 'user-panel.html' %}
+{% include 'node.html' %}
+{% include 'links.html' %}
+{% endblock %}

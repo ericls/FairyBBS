@@ -1,0 +1,49 @@
+{% extends 'base-with-sidebar.html' %}
+{% load i18n %}
+{% block left %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<p class="panel-title">
+			{% blocktrans %}
+			create appendix to topic:{{topic}}  <!-- FIXME: does not rendered correctly -->
+			{% endblocktrans %}
+		</p>
+	</div>
+	<div class="panel-body">
+		{% if messages %}
+		<div class="messages">
+			{% for message in messages %}
+			<p class="text-{{ message.tags }}">
+				{{ message }}
+			</p>
+			{% endfor %}
+		</div>
+		{% endif %}
+		<form class="form" action="{% url 'add_appendix' topic.id%}" method="post">
+			{% csrf_token %}
+			<div class="form-group ">
+				<label class="sr-only" for="content">{% trans 'content' %}</label>
+				<textarea placeholder="{% trans 'content' %}"  class="form-control" id="content" name="content"></textarea>
+			</div>
+			<div class="form-submit text-right">
+				<a class="btn btn-default" id="pre-btn">{% trans 'preview' %}</a>
+				<button class="btn btn-info" type="submit" id="submit">
+					{% trans 'submit' %}
+				</button>
+			</div>
+		</form>
+		<div class="previewer">
+
+		</div>
+	</div>
+</div><!--end reply panel-->
+{% endblock %}
+{% block right %}
+{% include 'node-info.html' %}
+{% include 'user-panel.html' %}
+{% include 'node.html' %}
+{% include 'links.html' %}
+{% endblock %}
+{% block footer_ext %}
+<script src="{{STATIC_URL}}js/previewer.js"></script>
+{% endblock %}

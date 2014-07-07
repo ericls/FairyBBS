@@ -1,0 +1,41 @@
+{% extends 'base-with-sidebar.html' %}
+{% load i18n %}
+{% block left %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{% trans 'node navigation' %}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="panel-body">            
+            {% for category,node_list in nodes.items %}
+           	<table cellpadding="0" cellspacing="0" border="0">
+				<tbody>
+					<tr>
+						<td align="right" width="60">{{category}}</td>
+						<td style="line-height: 200%; padding-left: 10px;">
+							{% for node in node_list %}
+							<span class="label label-default list-meta-node">
+							<a href="{% url 'node_view' node.id %}">
+								{{ node.title }}
+							</a>
+							</span>
+							{% endfor %}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			{% endfor %}
+</div>
+    </div>
+</div>
+{% endblock %}
+{% block right %}
+{% include 'user-panel.html' %}
+{% include 'node.html' %}
+{% include 'links.html' %}
+{% endblock %}
+{% block footer_ext %}
+
+
+
+{% endblock %}
