@@ -3,7 +3,7 @@ from account.models import profile
 from fairy import settings
 from forum.models import node, topic, post
 import os
-sitename = u'FairyBBS官方网站'
+sitename = u'FairyBBS'
 logoname = u'FairyBBS'
 
 links = {
@@ -15,3 +15,5 @@ UPLOAD_PATH = os.path.join(BASE_DIR, 'static/upload')
 user_count = profile.objects.count()
 topic_count = topic.objects.count()
 post_count = post.objects.count()
+
+site_off = False

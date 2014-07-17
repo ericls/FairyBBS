@@ -73,7 +73,6 @@ def reg(request):
             messages.add_message(request, messages.WARNING, _('username already exists'))
             return HttpResponseRedirect(reverse('reg'))
 
-        # TODO: 密码强度测试
         if password != password2 or password == '' or password2 == '':
             messages.add_message(request, messages.WARNING, _('passwords don\'t match, or are blank'))
             return HttpResponseRedirect(reverse('reg'))
@@ -95,7 +94,7 @@ def user_login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        
+
         if not User.objects.filter(username=username).exists():
             messages.add_message(request, messages.WARNING, _('username does not exist'))
             return HttpResponseRedirect(reverse('signin'))
@@ -169,7 +168,7 @@ def change_password(request):
 def user_avatar(request):
     u = request.user
     if request.method == 'GET':
-        return render_to_response('account/user-avatar.html', {'request': request, 'title': u'头像设置',
+        return render_to_response('account/user-avatar.html', {'request': request, 'title': _('avatar setting'),
                                                        'conf': conf},
                                   context_instance=RequestContext(request))
     else:
@@ -179,9 +178,9 @@ def user_avatar(request):
         if f:
             extension = os.path.splitext(f.name)[-1]
             if f.size > 524288:
-                return error(request, u'文件太大')
+                return error(request, _('file too big'))
             if (extension not in ['.jpg', '.png', '.gif']) or ('image' not in f.content_type):
-                return error(request, u'类型不允许')
+                return error(request, _('file type not permitted'))
             im = Image.open(f)
             im.thumbnail((120,120))
             name = storage.get_available_name(str(u.id)) + '.png'
@@ -211,10 +210,11 @@ def set_lang(request):
         if hasattr(request, 'session'):
             request.session[LANGUAGE_SESSION_KEY] = lang_code
         else:
-            response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code,
-                                max_age=settings.LANGUAGE_COOKIE_AGE,
-                                path=settings.LANGUAGE_COOKIE_PATH,
-                                domain=settings.LANGUAGE_COOKIE_DOMAIN)
+            pass
+            #response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code,
+            #                    max_age=settings.LANGUAGE_COOKIE_AGE,
+            #                    path=settings.LANGUAGE_COOKIE_PATH,
+            #                    domain=settings.LANGUAGE_COOKIE_DOMAIN)
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 ###############
