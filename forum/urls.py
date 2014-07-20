@@ -1,10 +1,13 @@
 from django.conf.urls import patterns, include, url
 
+
 api_urlpatterns = patterns('forum.api',
     url(r'^topic/(?P<topic_id>\d+)/$', 'topic_api', name='topic_api'),
     url(r'^topics/$', 'topics_api', name='topics_api'),
     url(r'^post/(?P<post_id>\d+)/$', 'post_api', name='post_api'),
+    url(r'^/simditor-upload/$', 'simditor_upload', name='simditor_upload'),
 )
+
 
 urlpatterns = patterns('forum.views',
     url(r'^$', 'index', name='index'),
