@@ -15,7 +15,7 @@ from django.core.validators import RegexValidator
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils.translation import LANGUAGE_SESSION_KEY
+#from django.utils.translation import LANGUAGE_SESSION_KEY
 from fairy import conf
 from forum.models import topic, post, node
 from forum.views import error
@@ -203,19 +203,19 @@ def reset(request):
         post_reset_redirect=reverse('signin'))
 
 
-def set_lang(request):
-    # the lang_code must be in the LANGUAGES tuple
-    if request.method == 'GET':
-        lang_code = request.GET['lang']
-        if hasattr(request, 'session'):
-            request.session[LANGUAGE_SESSION_KEY] = lang_code
-        else:
-            pass
-            #response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code,
-            #                    max_age=settings.LANGUAGE_COOKIE_AGE,
-            #                    path=settings.LANGUAGE_COOKIE_PATH,
-            #                    domain=settings.LANGUAGE_COOKIE_DOMAIN)
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+#def set_lang(request):
+#    # the lang_code must be in the LANGUAGES tuple
+#    if request.method == 'GET':
+#        lang_code = request.GET['lang']
+#        if hasattr(request, 'session'):
+#            request.session[LANGUAGE_SESSION_KEY] = lang_code
+#        else:
+#            pass
+#            #response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code,
+#            #                    max_age=settings.LANGUAGE_COOKIE_AGE,
+#            #                    path=settings.LANGUAGE_COOKIE_PATH,
+#            #                    domain=settings.LANGUAGE_COOKIE_DOMAIN)
+#        return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 ###############
 #oauth related#
