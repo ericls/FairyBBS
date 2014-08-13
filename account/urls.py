@@ -13,5 +13,5 @@ urlpatterns = patterns('account.views',
     url(r'^reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
         'reset_confirm', name='password_reset_confirm'),
     url(r'^reset/$', 'reset', name='password_reset'),
-    url(r'^set_lang/$', 'set_lang', name='set_lang'),
+#    url(r'^set_lang/$', 'set_lang', name='set_lang'),
 )
