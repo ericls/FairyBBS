@@ -211,3 +211,7 @@ a.add-new-btn {
 	line-height: 12px;
 	color: #FFF;
 }
+
+p > img {
+    max-width: 100%;
+}
